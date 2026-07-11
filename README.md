@@ -172,4 +172,4 @@ Contributions, issues, and feature requests are welcome!
 - **Nguyễn Quang Huy** - *Core System & Account Management Flow* - [qh-uy](https://github.com/qh-uy)
 - **Trương Ngọc Bảo** - *Judging, Ranking & Reporting Flow* - [BaoTNSE203313](https://github.com/BaoTNSE203313)
 ***
-*Made with ❤️ by the SEAL Team.*
+*Made with ❤️.*
