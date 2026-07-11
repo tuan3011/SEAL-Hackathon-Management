@@ -1,0 +1,387 @@
+{
+  "context": {
+    "base_url": "http://localhost:8080",
+    "test_user": "student1",
+    "test_role": "PARTICIPANT",
+    "tested_at": "2026-07-05T03:12:01",
+    "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODMxOTU5MjIsImV4cCI6MTc4MzI4MjMyMn0.H397KoDudRcd5f6g_pKkoQgmVkGdKNfoK90ymDRfSOI",
+    "refresh_token": "674cd491-3ace-4b9c-8e30-45a375d971a6",
+    "event_id": 1,
+    "event_slug": "fpt-hackathon-2026"
+  },
+  "summary": {
+    "total": 23,
+    "pass": 22,
+    "fail": 1
+  },
+  "results": [
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/login",
+      "description": "Dang nhap bang student1 de lay accessToken/refreshToken",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 182.38,
+      "message": "Login successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"accessToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODMxOTU5MjIsImV4cCI6MTc4MzI4MjMyMn0.H397KoDudRcd5f6g_pKkoQgmVkGdKNfoK90ymDRfSOI\",\"refreshToken\":\"674cd491-3ace-4b9c-8e30-45a375d971a6\"},\"message\":\"Login successful\",\"timestamp\":\"2026-07-05T03:12:02.0944721\"}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/refresh",
+      "description": "Lam moi access token bang refreshToken vua nhan",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 30.96,
+      "message": "Token refreshed successfully",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"accessToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODMxOTU5MjIsImV4cCI6MTc4MzI4MjMyMn0.H397KoDudRcd5f6g_pKkoQgmVkGdKNfoK90ymDRfSOI\",\"refreshToken\":\"674cd491-3ace-4b9c-8e30-45a375d971a6\"},\"message\":\"Token refreshed successfully\",\"timestamp\":\"2026-07-05T03:12:02.1264793\"}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/register",
+      "description": "Dang ky tai khoan participant moi",
+      "token_mode": "public",
+      "expected_status": [
+        201
+      ],
+      "actual_status": 201,
+      "result": "PASS",
+      "elapsed_ms": 4954.12,
+      "message": "Registration successful. Please check your email for OTP.",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"message\":\"Registration successful. Please check your email for OTP.\",\"timestamp\":\"2026-07-05T03:12:07.0797812\"}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/verify-otp",
+      "description": "Xac thuc OTP qua email bang ma test 000000",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 400,
+      "result": "FAIL",
+      "elapsed_ms": 10.35,
+      "message": "Invalid OTP.",
+      "path_note": "Khong doc OTP tu email/database; day la test black-box endpoint voi OTP sai.",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-07-05T03:12:07.0909348\",\"error\":{\"code\":\"BAD_REQUEST\",\"message\":\"Invalid OTP.\"}}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "GET",
+      "endpoint": "/api/v1/hackathon-events",
+      "description": "Lay danh sach tat ca event",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 42.83,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[{\"id\":1,\"name\":\"FPT Hackathon 2026\",\"slug\":\"fpt-hackathon-2026\",\"description\":\"Cuộc thi khởi nghiệp công nghệ dành cho sinh viên FPT toàn quốc\",\"status\":\"COMPLETED\",\"startTime\":\"2026-06-26T16:06:43.0733333\",\"endTime\":\"2026-07-26T16:06:43.0733333\",\"registrationStart\":\"2026-06-11T16:06:43.0733333\",\"registrationEnd\":\"2026-06-25T16:06:43.0733333\",\"minTeamSize\":2,\"maxTeamSize\":5,\"rules\":\"Mỗi đội 2-5 thành viên. Nộp bài qua GitHub. Không sử dụng code có sẵn.\",\"imageUrl\":null,\"organizerId\":2,\"organizerName\":\"organizer1\",\"createdAt\":\"2026-06-26T16:06:43.0733333\",\"updatedAt\":\"2026-06-27T15:56:45.183342\",\"allowedStatusTransitions\":null},{\"id\":2,\"name\":\"FPTU Innovation Challenge\",\"slug\":\"fptu-innovation-2026\",\"description\":\"Thử thách đổi mới sáng tạo lần 2 – chủ đề GreenTech\",\"status\":\"COMPLETED\",\"startTime\":\"2026-07-26T16:06:43.0733333\",\"endTime\":\"2026-08-25T16:06:43.0733333\",\"registrationStart\":\"2026-07-06T16:06:43.0733333\",\"registrationEnd\":\"2026-07-21T16:06:43.0733333\",\"minTeamSize\":2,\"maxTeamSize\":4,\"rules\":\"Chủ đề: Công nghệ xanh. Ưu tiên giải pháp thực tiễn.\",\"imageUrl\":null,\"organizerId\":3,\"organizerName\":\"organizer2\",\"createdAt\":\"2026-06-26T16:06:43.0733333\",\""
+    },
+    {
+      "group": "PUBLIC",
+      "method": "GET",
+      "endpoint": "/api/v1/hackathon-events/fpt-hackathon-2026",
+      "description": "Lay chi tiet event theo slug",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 28.48,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":1,\"name\":\"FPT Hackathon 2026\",\"slug\":\"fpt-hackathon-2026\",\"description\":\"Cuộc thi khởi nghiệp công nghệ dành cho sinh viên FPT toàn quốc\",\"status\":\"COMPLETED\",\"startTime\":\"2026-06-26T16:06:43.0733333\",\"endTime\":\"2026-07-26T16:06:43.0733333\",\"registrationStart\":\"2026-06-11T16:06:43.0733333\",\"registrationEnd\":\"2026-06-25T16:06:43.0733333\",\"minTeamSize\":2,\"maxTeamSize\":5,\"rules\":\"Mỗi đội 2-5 thành viên. Nộp bài qua GitHub. Không sử dụng code có sẵn.\",\"imageUrl\":null,\"organizerId\":2,\"organizerName\":\"organizer1\",\"createdAt\":\"2026-06-26T16:06:43.0733333\",\"updatedAt\":\"2026-06-27T15:56:45.183342\",\"allowedStatusTransitions\":null},\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.1625596\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/rounds/hackathon/1",
+      "description": "Xem danh sach vong thi cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 39.44,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[{\"id\":1,\"name\":\"Vòng Ý tưởng\",\"description\":\"Nộp bản mô tả ý tưởng và kế hoạch thực hiện\",\"startTime\":\"2026-06-26T16:06:43.0766667\",\"endTime\":\"2026-07-03T16:06:43.0766667\",\"hackathonEventId\":1,\"advancementSlots\":10},{\"id\":2,\"name\":\"Vòng Prototype\",\"description\":\"Demo sản phẩm prototype và trình bày kỹ thuật\",\"startTime\":\"2026-07-04T16:06:43.0766667\",\"endTime\":\"2026-07-16T16:06:43.0766667\",\"hackathonEventId\":1,\"advancementSlots\":5},{\"id\":3,\"name\":\"Vòng Chung kết\",\"description\":\"Thuyết trình trước hội đồng giám khảo\",\"startTime\":\"2026-07-17T16:06:43.0766667\",\"endTime\":\"2026-07-26T16:06:43.0766667\",\"hackathonEventId\":1,\"advancementSlots\":null}],\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.2005771\"}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "GET",
+      "endpoint": "/api/v1/rankings/round/1",
+      "description": "Xem bang xep hang public leaderboard",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 27.6,
+      "message": "Operation successful",
+      "path_note": "roundId su dung: 1.",
+      "response_preview": "{\"success\":true,\"data\":[],\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.229353\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/tracks/hackathon/1",
+      "description": "Xem danh sach track cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 22.1,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[{\"id\":1,\"name\":\"AI & Machine Learning\",\"description\":\"Ứng dụng trí tuệ nhân tạo và học máy vào giải quyết vấn đề thực tế\",\"hackathonEventId\":1},{\"id\":2,\"name\":\"Web & Mobile Development\",\"description\":\"Phát triển ứng dụng web hoặc mobile với UI/UX xuất sắc\",\"hackathonEventId\":1},{\"id\":3,\"name\":\"IoT & Embedded Systems\",\"description\":\"Giải pháp Internet of Things kết hợp phần cứng và phần mềm\",\"hackathonEventId\":1},{\"id\":6,\"name\":\"AI & Machine Learning\",\"description\":\"Ứng dụng trí tuệ nhân tạo và học máy vào giải quyết vấn đề thực tế\",\"hackathonEventId\":1},{\"id\":7,\"name\":\"Web & Mobile Development\",\"description\":\"Phát triển ứng dụng web hoặc mobile với UI/UX xuất sắc\",\"hackathonEventId\":1},{\"id\":8,\"name\":\"IoT & Embedded Systems\",\"description\":\"Giải pháp Internet of Things kết hợp phần cứng và phần mềm\",\"hackathonEventId\":1},{\"id\":11,\"name\":\"AI & Machine Learning\",\"description\":\"Ứng dụng trí tuệ nhân tạo và học máy vào giải quyết vấn đề thực tế\",\"hackathonEventId\":1},{\"id\":12,\"name\":\"Web & Mobile Development\",\"description\":\"Phát triển ứng dụng web hoặc mobile với UI/UX xuất sắc\",\"hackathonEventId\":1},{\"id\":13,\"name\":\"IoT & Embedded Systems\",\"description\":\"Giải ph"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/prizes/event/1",
+      "description": "Xem danh sach giai thuong cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 26.75,
+      "message": "",
+      "path_note": "",
+      "response_preview": "[]"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/criteria/event/1",
+      "description": "Xem tieu chi cham diem cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 20.85,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[],\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.2996944\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/teams/event/1",
+      "description": "Xem danh sach team cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 20.51,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[],\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.3206962\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/criteria/default",
+      "description": "Xem tieu chi mac dinh",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 29.13,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[{\"id\":4,\"name\":\"Tiêu chí mặc định 1\",\"description\":\"Mô tả tiêu chí mặc định 1\",\"maxScore\":10,\"weight\":1,\"hackathonEventId\":null,\"default\":true},{\"id\":5,\"name\":\"Tiêu chí mặc định 2\",\"description\":\"Mô tả tiêu chí mặc định 2\",\"maxScore\":10,\"weight\":2,\"hackathonEventId\":null,\"default\":true},{\"id\":6,\"name\":\"Tiêu chí mặc định 3\",\"description\":\"Mô tả tiêu chí mặc định 3\",\"maxScore\":10,\"weight\":1,\"hackathonEventId\":null,\"default\":true},{\"id\":10,\"name\":\"Tiêu chí mặc định 1\",\"description\":\"Mô tả tiêu chí mặc định 1\",\"maxScore\":10,\"weight\":1,\"hackathonEventId\":null,\"default\":true},{\"id\":11,\"name\":\"Tiêu chí mặc định 2\",\"description\":\"Mô tả tiêu chí mặc định 2\",\"maxScore\":10,\"weight\":2,\"hackathonEventId\":null,\"default\":true},{\"id\":12,\"name\":\"Tiêu chí mặc định 3\",\"description\":\"Mô tả tiêu chí mặc định 3\",\"maxScore\":10,\"weight\":1,\"hackathonEventId\":null,\"default\":true},{\"id\":16,\"name\":\"Tiêu chí mặc định 1\",\"description\":\"Mô tả tiêu chí mặc định 1\",\"maxScore\":10,\"weight\":1,\"hackathonEventId\":null,\"default\":true},{\"id\":17,\"name\":\"Tiêu chí mặc định 2\",\"description\":\"Mô tả tiêu chí mặc định 2\",\"maxScore\":10,\"weight\":2,\"hackathonEventId\":null,\"default\":true},{\"id\":18,\"name\":\"Ti"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/profile/me",
+      "description": "Xem profile cua minh",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 11.63,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":8,\"username\":\"student1\",\"email\":\"student1@fpt.edu.vn\",\"role\":\"PARTICIPANT\",\"fullName\":\"Student One API Test\",\"phone\":\"0900000001\",\"fptStudentId\":\"SE170001\",\"schoolName\":\"FPT University\",\"githubUrl\":\"https://github.com/student1-api-test\",\"bio\":\"API authorization test at 2026-07-05T03:11:31\",\"avatarUrl\":null},\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.3622508\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "PUT",
+      "endpoint": "/api/v1/profile/me",
+      "description": "Cap nhat profile cua minh voi payload hop le",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 22.54,
+      "message": "Profile updated successfully.",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":8,\"username\":\"student1\",\"email\":\"student1@fpt.edu.vn\",\"role\":\"PARTICIPANT\",\"fullName\":\"Student One API Test\",\"phone\":\"0900000001\",\"fptStudentId\":\"SE170001\",\"schoolName\":\"FPT University\",\"githubUrl\":\"https://github.com/student1-api-test\",\"bio\":\"API authorization test at 2026-07-05T03:12:01\",\"avatarUrl\":null},\"message\":\"Profile updated successfully.\",\"timestamp\":\"2026-07-05T03:12:07.3842487\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/notifications",
+      "description": "Xem thong bao cua minh",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 49.0,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[{\"id\":10047,\"title\":\"\\uD83C\\uDF89 Hackathon Mới:  International Champion\",\"message\":\"Hackathon  International Champion đã chính thức mở đăng ký. Nhanh tay đăng ký tham gia ngay!\",\"type\":\"SYSTEM_ALERT\",\"referenceType\":\"HACKATHON_EVENT\",\"referenceId\":10019,\"createdAt\":\"2026-07-01T16:45:23.31787\",\"read\":true},{\"id\":10041,\"title\":\"\\uD83C\\uDF89 Hackathon Mới: Copy of International Champion\",\"message\":\"Hackathon Copy of International Champion đã chính thức mở đăng ký. Nhanh tay đăng ký tham gia ngay!\",\"type\":\"SYSTEM_ALERT\",\"referenceType\":\"HACKATHON_EVENT\",\"referenceId\":10018,\"createdAt\":\"2026-07-01T16:44:25.623041\",\"read\":true},{\"id\":10040,\"title\":\"Invitation Accepted\",\"message\":\"student2 has accepted your invitation to join 'A'.\",\"type\":\"INVITATION_ACCEPTED\",\"referenceType\":\"Team\",\"referenceId\":10003,\"createdAt\":\"2026-07-01T16:39:19.675204\",\"read\":true},{\"id\":10033,\"title\":\"\\uD83C\\uDF89 Hackathon Mới: International Champion\",\"message\":\"Hackathon International Champion đã chính thức mở đăng ký. Nhanh tay đăng ký tham gia ngay!\",\"type\":\"SYSTEM_ALERT\",\"referenceType\":\"HACKATHON_EVENT\",\"referenceId\":10017,\"createdAt\":\"2026-07-01T16:37:59.249373\",\"read\":true},{\"id\":1"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/notifications/unread-count",
+      "description": "Dem thong bao chua doc",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 17.87,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"count\":0},\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.4517968\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "PATCH",
+      "endpoint": "/api/v1/notifications/10047/read",
+      "description": "Danh dau mot thong bao da doc",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 37.97,
+      "message": "Notification marked as read.",
+      "path_note": "notificationId su dung: 10047; neu user khong co notification thi endpoint se fail do thieu du lieu.",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":10047,\"title\":\"\\uD83C\\uDF89 Hackathon Mới:  International Champion\",\"message\":\"Hackathon  International Champion đã chính thức mở đăng ký. Nhanh tay đăng ký tham gia ngay!\",\"type\":\"SYSTEM_ALERT\",\"referenceType\":\"HACKATHON_EVENT\",\"referenceId\":10019,\"createdAt\":\"2026-07-01T16:45:23.31787\",\"read\":true},\"message\":\"Notification marked as read.\",\"timestamp\":\"2026-07-05T03:12:07.4888897\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "POST",
+      "endpoint": "/api/v1/notifications/read-all",
+      "description": "Danh dau tat ca thong bao da doc",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 17.27,
+      "message": "All notifications marked as read.",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"message\":\"All notifications marked as read.\",\"timestamp\":\"2026-07-05T03:12:07.5067435\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/teams/1",
+      "description": "Xem thong tin team",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 23.2,
+      "message": "Operation successful",
+      "path_note": "teamId su dung: 1; fallback 1 neu danh sach team rong.",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":1,\"name\":\"AABBCC\",\"projectName\":null,\"projectDescription\":null,\"trackId\":21,\"eventId\":6,\"trackName\":\"1\",\"status\":\"ACTIVE\",\"members\":[{\"userId\":8,\"username\":\"student1\",\"isLeader\":true},{\"userId\":9,\"username\":\"student2\",\"isLeader\":false},{\"userId\":9,\"username\":\"student2\",\"isLeader\":false}],\"finalScore\":null},\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.5297573\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/team-members/team/1",
+      "description": "Xem danh sach thanh vien team",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 24.94,
+      "message": "Operation successful",
+      "path_note": "teamId su dung: 1; fallback 1 neu danh sach team rong.",
+      "response_preview": "{\"success\":true,\"data\":[{\"id\":1,\"teamId\":1,\"userId\":8,\"username\":\"student1\",\"leader\":true},{\"id\":2,\"teamId\":1,\"userId\":9,\"username\":\"student2\",\"leader\":false},{\"id\":10,\"teamId\":1,\"userId\":9,\"username\":\"student2\",\"leader\":false}],\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.5542784\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/submissions/team/1",
+      "description": "Xem bai nop cua team",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 57.05,
+      "message": "Operation successful",
+      "path_note": "teamId su dung: 1; fallback 1 neu danh sach team rong.",
+      "response_preview": "{\"success\":true,\"data\":[],\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.6115393\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/submissions/1",
+      "description": "Xem chi tiet mot bai nop",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 57.99,
+      "message": "Operation successful",
+      "path_note": "submissionId su dung: 1; fallback 1 neu team khong co submission.",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":1,\"teamId\":6,\"teamName\":\"AABBCC\",\"roundId\":24,\"roundName\":\"1\",\"repositoryUrl\":\"https://asdsaad.com\",\"demoUrl\":\"https://asdsaadasda.com\",\"reportUrl\":\"\",\"submittedAt\":\"2026-06-26T19:36:18.576794\",\"version\":1,\"trackId\":24,\"trackName\":\"1\",\"eventId\":9},\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:12:07.6710393\"}"
+    }
+  ]
+}

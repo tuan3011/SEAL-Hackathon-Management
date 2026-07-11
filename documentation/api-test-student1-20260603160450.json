@@ -1,0 +1,387 @@
+{
+  "context": {
+    "base_url": "http://localhost:8080",
+    "test_user": "student1",
+    "test_role": "PARTICIPANT",
+    "tested_at": "2026-06-03T16:04:45",
+    "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODA0Nzc0ODYsImV4cCI6MTc4MDU2Mzg4Nn0.V6WgcN69kXme3Ov9ruEqebMXireFVXTh7ZImyls6FSw",
+    "refresh_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODA0Nzc0ODYsImV4cCI6MTc4MTA4MjI4Nn0.hZc4ow115rwy2O1XGoai9N1eMbdkiIEa6-5QmHz5cog",
+    "event_id": 1,
+    "event_slug": "fpt-hackathon-2026"
+  },
+  "summary": {
+    "total": 23,
+    "pass": 16,
+    "fail": 7
+  },
+  "results": [
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/login",
+      "description": "Dang nhap bang student1 de lay accessToken/refreshToken",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 276.85,
+      "message": "Login successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"accessToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODA0Nzc0ODYsImV4cCI6MTc4MDU2Mzg4Nn0.V6WgcN69kXme3Ov9ruEqebMXireFVXTh7ZImyls6FSw\",\"refreshToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODA0Nzc0ODYsImV4cCI6MTc4MTA4MjI4Nn0.hZc4ow115rwy2O1XGoai9N1eMbdkiIEa6-5QmHz5cog\"},\"message\":\"Login successful\",\"timestamp\":\"2026-06-03T16:04:46.1558497\"}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/refresh",
+      "description": "Lam moi access token bang refreshToken vua nhan",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 13.64,
+      "message": "Token refreshed successfully",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"accessToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODA0Nzc0ODYsImV4cCI6MTc4MDU2Mzg4Nn0.V6WgcN69kXme3Ov9ruEqebMXireFVXTh7ZImyls6FSw\",\"refreshToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODA0Nzc0ODYsImV4cCI6MTc4MTA4MjI4Nn0.hZc4ow115rwy2O1XGoai9N1eMbdkiIEa6-5QmHz5cog\"},\"message\":\"Token refreshed successfully\",\"timestamp\":\"2026-06-03T16:04:46.1721868\"}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/register",
+      "description": "Dang ky tai khoan participant moi",
+      "token_mode": "public",
+      "expected_status": [
+        201
+      ],
+      "actual_status": 500,
+      "result": "FAIL",
+      "elapsed_ms": 2960.87,
+      "message": "An unexpected error occurred.",
+      "path_note": "",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-06-03T16:04:49.133537\",\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"An unexpected error occurred.\"}}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/verify-otp",
+      "description": "Xac thuc OTP qua email bang ma test 000000",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 500,
+      "result": "FAIL",
+      "elapsed_ms": 48.62,
+      "message": "An unexpected error occurred.",
+      "path_note": "Khong doc OTP tu email/database; day la test black-box endpoint voi OTP sai.",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-06-03T16:04:49.177541\",\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"An unexpected error occurred.\"}}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "GET",
+      "endpoint": "/api/v1/hackathon-events",
+      "description": "Lay danh sach tat ca event",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 17.7,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[{\"id\":1,\"name\":\"FPT Hackathon 2026\",\"slug\":\"fpt-hackathon-2026\",\"description\":\"Cu?c thi kh?i nghi?p công ngh?\",\"startTime\":\"2026-05-27T16:28:30.5233333\",\"endTime\":\"2026-06-26T16:28:30.5233333\",\"imageUrl\":null,\"status\":\"PUBLISHED\",\"organizerId\":null,\"organizerName\":null}],\"pagination\":{\"page\":0,\"size\":20,\"totalElements\":1,\"totalPages\":1},\"message\":\"Operation successful\",\"timestamp\":\"2026-06-03T16:04:49.1982772\"}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "GET",
+      "endpoint": "/api/v1/hackathon-events/fpt-hackathon-2026",
+      "description": "Lay chi tiet event theo slug",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 18.68,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":1,\"name\":\"FPT Hackathon 2026\",\"slug\":\"fpt-hackathon-2026\",\"description\":\"Cu?c thi kh?i nghi?p công ngh?\",\"startTime\":\"2026-05-27T16:28:30.5233333\",\"endTime\":\"2026-06-26T16:28:30.5233333\",\"imageUrl\":null,\"status\":\"PUBLISHED\",\"organizerId\":null,\"organizerName\":null},\"message\":\"Operation successful\",\"timestamp\":\"2026-06-03T16:04:49.2175889\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/rounds/hackathon/1",
+      "description": "Xem danh sach vong thi cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 48.76,
+      "message": "",
+      "path_note": "",
+      "response_preview": "[]"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "GET",
+      "endpoint": "/api/v1/rankings/round/1",
+      "description": "Xem bang xep hang public leaderboard",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 403,
+      "result": "FAIL",
+      "elapsed_ms": 6.56,
+      "message": "Forbidden",
+      "path_note": "roundId su dung: 1.",
+      "response_preview": "{\"timestamp\":\"2026-06-03T09:04:49.268+00:00\",\"status\":403,\"error\":\"Forbidden\",\"path\":\"/api/v1/rankings/round/1\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/tracks/hackathon/1",
+      "description": "Xem danh sach track cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 78.08,
+      "message": "",
+      "path_note": "",
+      "response_preview": "[]"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/prizes/event/1",
+      "description": "Xem danh sach giai thuong cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 63.45,
+      "message": "",
+      "path_note": "",
+      "response_preview": "[]"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/criteria/event/1",
+      "description": "Xem tieu chi cham diem cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 27.62,
+      "message": "",
+      "path_note": "",
+      "response_preview": "[]"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/teams/event/1",
+      "description": "Xem danh sach team cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 93.55,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[],\"message\":\"Operation successful\",\"timestamp\":\"2026-06-03T16:04:49.5304868\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/criteria/default",
+      "description": "Xem tieu chi mac dinh",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 28.25,
+      "message": "",
+      "path_note": "",
+      "response_preview": "[]"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/profile/me",
+      "description": "Xem profile cua minh",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 33.44,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":5,\"username\":\"student1\",\"email\":\"student1@fpt.edu.vn\",\"role\":\"PARTICIPANT\",\"fullName\":null,\"phone\":null,\"fptStudentId\":\"SE170001\",\"schoolName\":\"FPT University\",\"githubUrl\":null,\"bio\":null,\"avatarUrl\":null},\"message\":\"Operation successful\",\"timestamp\":\"2026-06-03T16:04:49.5949015\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "PUT",
+      "endpoint": "/api/v1/profile/me",
+      "description": "Cap nhat profile cua minh voi payload hop le",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 87.15,
+      "message": "Profile updated successfully.",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":5,\"username\":\"student1\",\"email\":\"student1@fpt.edu.vn\",\"role\":\"PARTICIPANT\",\"fullName\":\"Student One API Test\",\"phone\":\"0900000001\",\"fptStudentId\":\"SE170001\",\"schoolName\":\"FPT University\",\"githubUrl\":\"https://github.com/student1-api-test\",\"bio\":\"API authorization test at 2026-06-03T16:04:45\",\"avatarUrl\":null},\"message\":\"Profile updated successfully.\",\"timestamp\":\"2026-06-03T16:04:49.6784622\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/notifications",
+      "description": "Xem thong bao cua minh",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 34.18,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[],\"message\":\"Operation successful\",\"timestamp\":\"2026-06-03T16:04:49.7101088\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/notifications/unread-count",
+      "description": "Dem thong bao chua doc",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 14.53,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"count\":0},\"message\":\"Operation successful\",\"timestamp\":\"2026-06-03T16:04:49.7258208\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "PATCH",
+      "endpoint": "/api/v1/notifications/1/read",
+      "description": "Danh dau mot thong bao da doc",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 404,
+      "result": "FAIL",
+      "elapsed_ms": 47.85,
+      "message": "Notification not found",
+      "path_note": "notificationId su dung: 1; neu user khong co notification thi endpoint se fail do thieu du lieu.",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-06-03T16:04:49.7734808\",\"error\":{\"code\":\"RESOURCE_NOT_FOUND\",\"message\":\"Notification not found\"}}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "POST",
+      "endpoint": "/api/v1/notifications/read-all",
+      "description": "Danh dau tat ca thong bao da doc",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 49.31,
+      "message": "All notifications marked as read.",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"message\":\"All notifications marked as read.\",\"timestamp\":\"2026-06-03T16:04:49.8211136\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/teams/1",
+      "description": "Xem thong tin team",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 500,
+      "result": "FAIL",
+      "elapsed_ms": 62.12,
+      "message": "An unexpected error occurred.",
+      "path_note": "teamId su dung: 1; fallback 1 neu danh sach team rong.",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-06-03T16:04:49.8842363\",\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"An unexpected error occurred.\"}}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/team-members/team/1",
+      "description": "Xem danh sach thanh vien team",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 31.19,
+      "message": "",
+      "path_note": "teamId su dung: 1; fallback 1 neu danh sach team rong.",
+      "response_preview": "[{\"id\":1,\"teamId\":1,\"userId\":10010,\"username\":\"apitest_user_20260530161737\",\"leader\":true}]"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/submissions/team/1",
+      "description": "Xem bai nop cua team",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 403,
+      "result": "FAIL",
+      "elapsed_ms": 35.95,
+      "message": "You do not have permission to access this resource.",
+      "path_note": "teamId su dung: 1; fallback 1 neu danh sach team rong.",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-06-03T16:04:49.9632615\",\"error\":{\"code\":\"FORBIDDEN\",\"message\":\"You do not have permission to access this resource.\"}}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/submissions/1",
+      "description": "Xem chi tiet mot bai nop",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 404,
+      "result": "FAIL",
+      "elapsed_ms": 41.41,
+      "message": "Submission not found",
+      "path_note": "submissionId su dung: 1; fallback 1 neu team khong co submission.",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-06-03T16:04:50.0028267\",\"error\":{\"code\":\"RESOURCE_NOT_FOUND\",\"message\":\"Submission not found\"}}"
+    }
+  ]
+}

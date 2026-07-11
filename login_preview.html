@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SEAL Hackathon - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#f8f9ff",
+                      "outline-variant": "#e0c0b2",
+                      "inverse-on-surface": "#eaf1ff",
+                      "secondary-container": "#dae2fd",
+                      "on-surface-variant": "#584238",
+                      "tertiary-fixed-dim": "#c0c1ff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-low": "#eff4ff",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "primary": "#a04100",
+                      "surface-container-high": "#dce9ff",
+                      "on-tertiary-fixed-variant": "#2f2ebe",
+                      "secondary-fixed": "#dae2fd",
+                      "surface-container": "#e5eeff",
+                      "on-tertiary": "#ffffff",
+                      "surface-bright": "#f8f9ff",
+                      "primary-fixed-dim": "#ffb693",
+                      "primary-container": "#f36f21",
+                      "outline": "#8c7166",
+                      "on-primary-fixed-variant": "#7a3000",
+                      "tertiary-container": "#878aff",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#5c647a",
+                      "surface-dim": "#cbdbf5",
+                      "surface-variant": "#d3e4fe",
+                      "error-container": "#ffdad6",
+                      "on-surface": "#0b1c30",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#213145",
+                      "surface-tint": "#a04100",
+                      "on-secondary-fixed": "#131b2e",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#e1e0ff",
+                      "inverse-primary": "#ffb693",
+                      "tertiary": "#494bd6",
+                      "on-primary": "#ffffff",
+                      "secondary": "#565e74",
+                      "primary-fixed": "#ffdbcc",
+                      "on-primary-fixed": "#351000",
+                      "on-background": "#0b1c30",
+                      "on-primary-container": "#531e00",
+                      "background": "#f8f9ff",
+                      "on-tertiary-container": "#1000a4",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed": "#07006c",
+                      "custom-navy": "#1e2b3c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "2xl": "3rem",
+                      "xl": "2rem",
+                      "lg": "1.5rem",
+                      "gutter": "1.5rem",
+                      "margin-mobile": "1rem",
+                      "base": "4px",
+                      "margin-desktop": "2.5rem",
+                      "sm": "0.5rem",
+                      "md": "1rem",
+                      "xs": "0.25rem"
+              },
+              "fontFamily": {
+                      "label-lg": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "label-lg": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                      "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                      "label-md": ["12px", { "lineHeight": "1", "fontWeight": "500" }],
+                      "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                      "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                      "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                      "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                      "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                      "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .input-focus-ring:focus {
+            box-shadow: 0 0 0 3px rgba(243, 111, 33, 0.2);
+            border-color: #f36f21;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest min-h-screen font-body-md text-on-surface flex flex-col md:flex-row">
+<!-- Left Side: Hero Section -->
+<div class="hidden md:flex md:w-1/2 bg-custom-navy text-white flex-col p-xl justify-between h-screen overflow-y-auto">
+<!-- Logo -->
+<div class="flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined font-bold text-2xl">code</span>
+<span class="font-headline-sm text-headline-sm">SEAL Hackathon</span>
+</div>
+<!-- Hero Image -->
+<div class="flex-grow flex items-center justify-center mb-8">
+<img alt="Students collaborating on a technology project" class="w-full max-w-lg object-contain rounded-lg shadow-2xl" src="https://lh3.googleusercontent.com/aida/ADBb0uitWim82Q5HfJqywHlRjkXxio2RpnopMgkHEKJ0tMxeOH_jBYBLhndF1KCCeX_ojm2jGSpoEf-7rQcG2lOD7IA_diFsTsXwt_2LTZ_dsDfdA9HexT5YsaL_kJNXMOSfry5qQv1sZlSAjIgu3hu7dc-7Pw3C811SEusrLx7wDrPhRtfMZIGHYbFGtyDCYibDyJ_y7t52QPh1xu2HV7gKjqiQS_FCCZgw-G0DrocQ5aQweNEzONcH2xRqLZ7O">
+</div>
+<!-- Typography -->
+<div class="max-w-md">
+<h1 class="font-display-lg text-display-lg mb-md leading-tight">Empowering the next generation of software innovators.</h1>
+<p class="font-body-lg text-body-lg text-gray-300">Join the elite FPT University hackathon. Build, collaborate, and showcase your skills to top industry leaders.</p>
+</div>
+</div>
+<!-- Right Side: Form Section -->
+<main class="w-full md:w-1/2 flex items-center justify-center p-margin-mobile md:p-margin-desktop h-screen overflow-y-auto bg-surface-container-lowest relative">
+<!-- Mobile Logo -->
+<div class="absolute top-margin-mobile left-margin-mobile md:hidden flex items-center gap-2 text-custom-navy">
+<span class="material-symbols-outlined font-bold text-2xl">code</span>
+<span class="font-headline-sm text-headline-sm">SEAL Hackathon</span>
+</div>
+<div class="w-full max-w-md mt-16 md:mt-0">
+<!-- Tabs -->
+<div class="flex mb-xl border-b border-outline-variant">
+<button class="flex-1 pb-sm font-label-lg text-label-lg text-primary-container border-b-2 border-primary-container transition-colors">
+                    Log In
+                </button>
+<button class="flex-1 pb-sm font-label-lg text-label-lg text-on-surface-variant border-b-2 border-transparent hover:text-on-surface transition-colors">
+                    Create Account
+                </button>
+</div>
+<!-- Form -->
+<form class="space-y-lg">
+<!-- Google Sign In -->
+<button class="w-full bg-surface-container-lowest border border-outline-variant text-on-surface py-md rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-sm hover:bg-surface-container-low transition-all duration-200 shadow-sm" type="button">
+<svg class="w-5 h-5" viewBox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+<span>Sign in with Google</span>
+</button>
+<div class="relative flex items-center py-2">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="flex-shrink-0 mx-4 text-on-surface-variant font-body-sm text-body-sm">or</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<!-- Email Field -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-sm" for="email">Email Address</label>
+<div class="relative">
+<input class="w-full px-md py-sm bg-surface-container-lowest rounded border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none input-focus-ring transition-all duration-200" id="email" name="email" placeholder="john@example.com" required="" type="email">
+</div>
+</div>
+<!-- Password Field -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-sm" for="password">Password</label>
+<div class="relative">
+<input class="w-full pl-md pr-[44px] py-sm bg-surface-container-lowest rounded border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none input-focus-ring transition-all duration-200" id="password" name="password" placeholder="••••••••" required="" type="password">
+<button class="absolute inset-y-0 right-0 pr-md flex items-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer focus:outline-none" id="togglePassword" type="button">
+<span class="material-symbols-outlined text-[20px]" id="passwordIcon">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Remember Me & Forgot Password -->
+<div class="flex items-center justify-between mt-sm">
+<label class="flex items-center gap-xs cursor-pointer group">
+<input class="w-4 h-4 rounded border-outline-variant text-primary-container focus:ring-primary-container/20 focus:ring-offset-0 bg-surface-container-lowest checked:bg-primary-container checked:border-primary-container transition-colors cursor-pointer" type="checkbox">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Remember this device for 30 days</span>
+</label>
+<a class="font-body-sm text-body-sm text-primary-container hover:underline transition-colors" href="#">Forgot password?</a>
+</div>
+<!-- Main Action -->
+<button class="w-full bg-primary-container text-on-primary py-md rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-xs hover:bg-[#d95c14] transition-all duration-200 active:scale-[0.98] shadow-sm mt-md" type="submit">
+<span>Sign In</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</form>
+</div>
+</main>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const togglePasswordBtn = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('passwordIcon');
+
+            if(togglePasswordBtn && passwordInput && passwordIcon) {
+                togglePasswordBtn.addEventListener('click', () => {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    passwordIcon.textContent = type === 'password' ? 'visibility' : 'visibility_off';
+                });
+            }
+        });
+    </script>
+</body></html>

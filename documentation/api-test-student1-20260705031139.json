@@ -1,0 +1,387 @@
+{
+  "context": {
+    "base_url": "http://localhost:8080",
+    "test_user": "student1",
+    "test_role": "PARTICIPANT",
+    "tested_at": "2026-07-05T03:11:31",
+    "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODMxOTU4OTIsImV4cCI6MTc4MzI4MjI5Mn0.iiD6KrkbBFpGtEmjuisW_J1Fubng873u-TMt9ldUG5k",
+    "refresh_token": "f552713f-4c1e-4c98-ba7a-a234a012c6b0",
+    "event_id": 1,
+    "event_slug": "fpt-hackathon-2026"
+  },
+  "summary": {
+    "total": 23,
+    "pass": 16,
+    "fail": 7
+  },
+  "results": [
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/login",
+      "description": "Dang nhap bang student1 de lay accessToken/refreshToken",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 733.57,
+      "message": "Login successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"accessToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODMxOTU4OTIsImV4cCI6MTc4MzI4MjI5Mn0.iiD6KrkbBFpGtEmjuisW_J1Fubng873u-TMt9ldUG5k\",\"refreshToken\":\"f552713f-4c1e-4c98-ba7a-a234a012c6b0\"},\"message\":\"Login successful\",\"timestamp\":\"2026-07-05T03:11:32.3726835\"}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/refresh",
+      "description": "Lam moi access token bang refreshToken vua nhan",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 48.29,
+      "message": "Token refreshed successfully",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"accessToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsInJvbGVzIjoiUEFSVElDSVBBTlQiLCJpYXQiOjE3ODMxOTU4OTIsImV4cCI6MTc4MzI4MjI5Mn0.iiD6KrkbBFpGtEmjuisW_J1Fubng873u-TMt9ldUG5k\",\"refreshToken\":\"f552713f-4c1e-4c98-ba7a-a234a012c6b0\"},\"message\":\"Token refreshed successfully\",\"timestamp\":\"2026-07-05T03:11:32.4490883\"}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/register",
+      "description": "Dang ky tai khoan participant moi",
+      "token_mode": "public",
+      "expected_status": [
+        201
+      ],
+      "actual_status": 201,
+      "result": "PASS",
+      "elapsed_ms": 5971.11,
+      "message": "Registration successful. Please check your email for OTP.",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"message\":\"Registration successful. Please check your email for OTP.\",\"timestamp\":\"2026-07-05T03:11:38.4207919\"}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "POST",
+      "endpoint": "/api/v1/auth/verify-otp",
+      "description": "Xac thuc OTP qua email bang ma test 000000",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 400,
+      "result": "FAIL",
+      "elapsed_ms": 16.9,
+      "message": "Invalid OTP.",
+      "path_note": "Khong doc OTP tu email/database; day la test black-box endpoint voi OTP sai.",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-07-05T03:11:38.4360985\",\"error\":{\"code\":\"BAD_REQUEST\",\"message\":\"Invalid OTP.\"}}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "GET",
+      "endpoint": "/api/v1/hackathon-events",
+      "description": "Lay danh sach tat ca event",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 115.02,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[{\"id\":1,\"name\":\"FPT Hackathon 2026\",\"slug\":\"fpt-hackathon-2026\",\"description\":\"Cuộc thi khởi nghiệp công nghệ dành cho sinh viên FPT toàn quốc\",\"status\":\"COMPLETED\",\"startTime\":\"2026-06-26T16:06:43.0733333\",\"endTime\":\"2026-07-26T16:06:43.0733333\",\"registrationStart\":\"2026-06-11T16:06:43.0733333\",\"registrationEnd\":\"2026-06-25T16:06:43.0733333\",\"minTeamSize\":2,\"maxTeamSize\":5,\"rules\":\"Mỗi đội 2-5 thành viên. Nộp bài qua GitHub. Không sử dụng code có sẵn.\",\"imageUrl\":null,\"organizerId\":2,\"organizerName\":\"organizer1\",\"createdAt\":\"2026-06-26T16:06:43.0733333\",\"updatedAt\":\"2026-06-27T15:56:45.183342\",\"allowedStatusTransitions\":null},{\"id\":2,\"name\":\"FPTU Innovation Challenge\",\"slug\":\"fptu-innovation-2026\",\"description\":\"Thử thách đổi mới sáng tạo lần 2 – chủ đề GreenTech\",\"status\":\"COMPLETED\",\"startTime\":\"2026-07-26T16:06:43.0733333\",\"endTime\":\"2026-08-25T16:06:43.0733333\",\"registrationStart\":\"2026-07-06T16:06:43.0733333\",\"registrationEnd\":\"2026-07-21T16:06:43.0733333\",\"minTeamSize\":2,\"maxTeamSize\":4,\"rules\":\"Chủ đề: Công nghệ xanh. Ưu tiên giải pháp thực tiễn.\",\"imageUrl\":null,\"organizerId\":3,\"organizerName\":\"organizer2\",\"createdAt\":\"2026-06-26T16:06:43.0733333\",\""
+    },
+    {
+      "group": "PUBLIC",
+      "method": "GET",
+      "endpoint": "/api/v1/hackathon-events/fpt-hackathon-2026",
+      "description": "Lay chi tiet event theo slug",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 43.61,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":1,\"name\":\"FPT Hackathon 2026\",\"slug\":\"fpt-hackathon-2026\",\"description\":\"Cuộc thi khởi nghiệp công nghệ dành cho sinh viên FPT toàn quốc\",\"status\":\"COMPLETED\",\"startTime\":\"2026-06-26T16:06:43.0733333\",\"endTime\":\"2026-07-26T16:06:43.0733333\",\"registrationStart\":\"2026-06-11T16:06:43.0733333\",\"registrationEnd\":\"2026-06-25T16:06:43.0733333\",\"minTeamSize\":2,\"maxTeamSize\":5,\"rules\":\"Mỗi đội 2-5 thành viên. Nộp bài qua GitHub. Không sử dụng code có sẵn.\",\"imageUrl\":null,\"organizerId\":2,\"organizerName\":\"organizer1\",\"createdAt\":\"2026-06-26T16:06:43.0733333\",\"updatedAt\":\"2026-06-27T15:56:45.183342\",\"allowedStatusTransitions\":null},\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:11:38.5956201\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/rounds/hackathon/1",
+      "description": "Xem danh sach vong thi cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 500,
+      "result": "FAIL",
+      "elapsed_ms": 40.92,
+      "message": "org.springframework.web.servlet.resource.NoResourceFoundException: No static resource rounds/hackathon/1. | No static resource rounds/hackathon/1.",
+      "path_note": "",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-07-05T03:11:38.6377489\",\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"org.springframework.web.servlet.resource.NoResourceFoundException: No static resource rounds/hackathon/1. | No static resource rounds/hackathon/1.\"}}"
+    },
+    {
+      "group": "PUBLIC",
+      "method": "GET",
+      "endpoint": "/api/v1/rankings/round/1",
+      "description": "Xem bang xep hang public leaderboard",
+      "token_mode": "public",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 36.84,
+      "message": "Operation successful",
+      "path_note": "roundId su dung: 1.",
+      "response_preview": "{\"success\":true,\"data\":[],\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:11:38.6737646\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/tracks/hackathon/1",
+      "description": "Xem danh sach track cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 500,
+      "result": "FAIL",
+      "elapsed_ms": 14.63,
+      "message": "org.springframework.web.servlet.resource.NoResourceFoundException: No static resource tracks/hackathon/1. | No static resource tracks/hackathon/1.",
+      "path_note": "",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-07-05T03:11:38.6897332\",\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"org.springframework.web.servlet.resource.NoResourceFoundException: No static resource tracks/hackathon/1. | No static resource tracks/hackathon/1.\"}}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/prizes/event/1",
+      "description": "Xem danh sach giai thuong cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 500,
+      "result": "FAIL",
+      "elapsed_ms": 27.12,
+      "message": "org.springframework.web.servlet.resource.NoResourceFoundException: No static resource prizes/event/1. | No static resource prizes/event/1.",
+      "path_note": "",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-07-05T03:11:38.716739\",\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"org.springframework.web.servlet.resource.NoResourceFoundException: No static resource prizes/event/1. | No static resource prizes/event/1.\"}}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/criteria/event/1",
+      "description": "Xem tieu chi cham diem cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 500,
+      "result": "FAIL",
+      "elapsed_ms": 30.24,
+      "message": "org.springframework.web.servlet.resource.NoResourceFoundException: No static resource criteria/event/1. | No static resource criteria/event/1.",
+      "path_note": "",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-07-05T03:11:38.7478296\",\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"org.springframework.web.servlet.resource.NoResourceFoundException: No static resource criteria/event/1. | No static resource criteria/event/1.\"}}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/teams/event/1",
+      "description": "Xem danh sach team cua event",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 31.19,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[],\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:11:38.7778305\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/criteria/default",
+      "description": "Xem tieu chi mac dinh",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 500,
+      "result": "FAIL",
+      "elapsed_ms": 11.61,
+      "message": "org.springframework.web.servlet.resource.NoResourceFoundException: No static resource criteria/default. | No static resource criteria/default.",
+      "path_note": "",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-07-05T03:11:38.7908563\",\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"org.springframework.web.servlet.resource.NoResourceFoundException: No static resource criteria/default. | No static resource criteria/default.\"}}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/profile/me",
+      "description": "Xem profile cua minh",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 18.81,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":8,\"username\":\"student1\",\"email\":\"student1@fpt.edu.vn\",\"role\":\"PARTICIPANT\",\"fullName\":\"Nguyễn Minh Sinh\",\"phone\":\"0901000008\",\"fptStudentId\":\"SE170001\",\"schoolName\":\"FPT University\",\"githubUrl\":\"https://github.com/student1\",\"bio\":\"Sinh viên SE năm 3\",\"avatarUrl\":null},\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:11:38.8048581\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "PUT",
+      "endpoint": "/api/v1/profile/me",
+      "description": "Cap nhat profile cua minh voi payload hop le",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 42.11,
+      "message": "Profile updated successfully.",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":8,\"username\":\"student1\",\"email\":\"student1@fpt.edu.vn\",\"role\":\"PARTICIPANT\",\"fullName\":\"Student One API Test\",\"phone\":\"0900000001\",\"fptStudentId\":\"SE170001\",\"schoolName\":\"FPT University\",\"githubUrl\":\"https://github.com/student1-api-test\",\"bio\":\"API authorization test at 2026-07-05T03:11:31\",\"avatarUrl\":null},\"message\":\"Profile updated successfully.\",\"timestamp\":\"2026-07-05T03:11:38.8511827\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/notifications",
+      "description": "Xem thong bao cua minh",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 62.09,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":[{\"id\":10047,\"title\":\"\\uD83C\\uDF89 Hackathon Mới:  International Champion\",\"message\":\"Hackathon  International Champion đã chính thức mở đăng ký. Nhanh tay đăng ký tham gia ngay!\",\"type\":\"SYSTEM_ALERT\",\"referenceType\":\"HACKATHON_EVENT\",\"referenceId\":10019,\"createdAt\":\"2026-07-01T16:45:23.31787\",\"read\":false},{\"id\":10041,\"title\":\"\\uD83C\\uDF89 Hackathon Mới: Copy of International Champion\",\"message\":\"Hackathon Copy of International Champion đã chính thức mở đăng ký. Nhanh tay đăng ký tham gia ngay!\",\"type\":\"SYSTEM_ALERT\",\"referenceType\":\"HACKATHON_EVENT\",\"referenceId\":10018,\"createdAt\":\"2026-07-01T16:44:25.623041\",\"read\":false},{\"id\":10040,\"title\":\"Invitation Accepted\",\"message\":\"student2 has accepted your invitation to join 'A'.\",\"type\":\"INVITATION_ACCEPTED\",\"referenceType\":\"Team\",\"referenceId\":10003,\"createdAt\":\"2026-07-01T16:39:19.675204\",\"read\":false},{\"id\":10033,\"title\":\"\\uD83C\\uDF89 Hackathon Mới: International Champion\",\"message\":\"Hackathon International Champion đã chính thức mở đăng ký. Nhanh tay đăng ký tham gia ngay!\",\"type\":\"SYSTEM_ALERT\",\"referenceType\":\"HACKATHON_EVENT\",\"referenceId\":10017,\"createdAt\":\"2026-07-01T16:37:59.249373\",\"read\":false},{\"i"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/notifications/unread-count",
+      "description": "Dem thong bao chua doc",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 22.17,
+      "message": "Operation successful",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"data\":{\"count\":30},\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:11:38.9347906\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "PATCH",
+      "endpoint": "/api/v1/notifications/10047/read",
+      "description": "Danh dau mot thong bao da doc",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 27.0,
+      "message": "Notification marked as read.",
+      "path_note": "notificationId su dung: 10047; neu user khong co notification thi endpoint se fail do thieu du lieu.",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":10047,\"title\":\"\\uD83C\\uDF89 Hackathon Mới:  International Champion\",\"message\":\"Hackathon  International Champion đã chính thức mở đăng ký. Nhanh tay đăng ký tham gia ngay!\",\"type\":\"SYSTEM_ALERT\",\"referenceType\":\"HACKATHON_EVENT\",\"referenceId\":10019,\"createdAt\":\"2026-07-01T16:45:23.31787\",\"read\":true},\"message\":\"Notification marked as read.\",\"timestamp\":\"2026-07-05T03:11:38.9628092\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "POST",
+      "endpoint": "/api/v1/notifications/read-all",
+      "description": "Danh dau tat ca thong bao da doc",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 28.17,
+      "message": "All notifications marked as read.",
+      "path_note": "",
+      "response_preview": "{\"success\":true,\"message\":\"All notifications marked as read.\",\"timestamp\":\"2026-07-05T03:11:38.9918152\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/teams/1",
+      "description": "Xem thong tin team",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 40.05,
+      "message": "Operation successful",
+      "path_note": "teamId su dung: 1; fallback 1 neu danh sach team rong.",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":1,\"name\":\"AABBCC\",\"projectName\":null,\"projectDescription\":null,\"trackId\":21,\"eventId\":6,\"trackName\":\"1\",\"status\":\"ACTIVE\",\"members\":[{\"userId\":8,\"username\":\"student1\",\"isLeader\":true},{\"userId\":9,\"username\":\"student2\",\"isLeader\":false},{\"userId\":9,\"username\":\"student2\",\"isLeader\":false}],\"finalScore\":null},\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:11:39.0269498\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/team-members/team/1",
+      "description": "Xem danh sach thanh vien team",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 500,
+      "result": "FAIL",
+      "elapsed_ms": 34.51,
+      "message": "org.springframework.web.servlet.resource.NoResourceFoundException: No static resource team-members/team/1. | No static resource team-members/team/1.",
+      "path_note": "teamId su dung: 1; fallback 1 neu danh sach team rong.",
+      "response_preview": "{\"success\":false,\"timestamp\":\"2026-07-05T03:11:39.0659433\",\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"org.springframework.web.servlet.resource.NoResourceFoundException: No static resource team-members/team/1. | No static resource team-members/team/1.\"}}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/submissions/team/1",
+      "description": "Xem bai nop cua team",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 60.67,
+      "message": "Operation successful",
+      "path_note": "teamId su dung: 1; fallback 1 neu danh sach team rong.",
+      "response_preview": "{\"success\":true,\"data\":[],\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:11:39.1255415\"}"
+    },
+    {
+      "group": "ALL_AUTHENTICATED",
+      "method": "GET",
+      "endpoint": "/api/v1/submissions/1",
+      "description": "Xem chi tiet mot bai nop",
+      "token_mode": "student1",
+      "expected_status": [
+        200
+      ],
+      "actual_status": 200,
+      "result": "PASS",
+      "elapsed_ms": 45.58,
+      "message": "Operation successful",
+      "path_note": "submissionId su dung: 1; fallback 1 neu team khong co submission.",
+      "response_preview": "{\"success\":true,\"data\":{\"id\":1,\"teamId\":6,\"teamName\":\"AABBCC\",\"roundId\":24,\"roundName\":\"1\",\"repositoryUrl\":\"https://asdsaad.com\",\"demoUrl\":\"https://asdsaadasda.com\",\"reportUrl\":\"\",\"submittedAt\":\"2026-06-26T19:36:18.576794\",\"version\":1,\"trackId\":24,\"trackName\":\"1\",\"eventId\":9},\"message\":\"Operation successful\",\"timestamp\":\"2026-07-05T03:11:39.1705468\"}"
+    }
+  ]
+}

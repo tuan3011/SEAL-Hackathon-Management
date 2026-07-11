@@ -1,0 +1,22 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Node.js
+node_modules/
+dist/
+build/
+
+# React/Vite env
+.env
+
+# Java / Spring Boot
+target/
+*.class
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
