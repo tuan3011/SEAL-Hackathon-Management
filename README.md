@@ -17,16 +17,16 @@ SEAL Hackathon Management System handles everything from participant registratio
 This flow serves as the backbone of the system. It handles user identity and provides shared services (notifications, logging).
 ```mermaid
 flowchart TD
-    Guest([New User]) --> Register[Account Registration (auth)]
-    Register --> AdminApprove[Admin Approval]
-    Login --> UpdateProfile[Update Profile (profile)]
-    Admin --> RoleAssign{Role Assignment (user)}
+    Guest([New User]) --> Register["Account Registration (auth)"]
+    Register --> AdminApprove["Admin Approval"]
+    Login --> UpdateProfile["Update Profile (profile)"]
+    Admin --> RoleAssign{"Role Assignment (user)"}
     
     %% Admin creates accounts for other roles
     
     %% Background Services
-    SystemService((Shared Services)) -.-> SendNotif[Send Email/App Notification]
-    SystemService -.-> WriteLog[Record Audit Log]
+    SystemService((Shared Services)) -.-> SendNotif["Send Email/App Notification"]
+    SystemService -.-> WriteLog["Record Audit Log"]
 ```
 ### 2. Event Initialization & Management
 **Assigned to:** Nguyễn Khôi Nguyên
@@ -34,11 +34,11 @@ flowchart TD
 This flow is designed for Admins/Organizers to configure the "rules" and event structure before opening registration to participants.
 ```mermaid
 flowchart TD
-    Admin --> CreateEvent[Create New Hackathon Event]
-    AdminOrg[Admin/Organizer] --> ConfigTracks[Configure Tracks]
-    ConfigTracks --> ConfigRounds[Configure Rounds]
-    ConfigRounds --> SetCriteria[Set Scoring Criteria]
-    SetCriteria --> SetPrizes[Set Prizes]
+    Admin --> CreateEvent["Create New Hackathon Event"]
+    AdminOrg["Admin/Organizer"] --> ConfigTracks["Configure Tracks"]
+    ConfigTracks --> ConfigRounds["Configure Rounds"]
+    ConfigRounds --> SetCriteria["Set Scoring Criteria"]
+    SetCriteria --> SetPrizes["Set Prizes"]
     
     SetPrizes --> OpenRegistration([Open Event Registration])
 ```
@@ -48,18 +48,18 @@ flowchart TD
 This flow outlines the participant's journey from event registration to finding teammates and finalizing the team roster.
 ```mermaid
 flowchart TD
-    Participant([Participant]) --> RegisterEvent[Register for Event]
+    Participant([Participant]) --> RegisterEvent["Register for Event"]
     
-    RegisterEvent --> CreateTeam[Create Team]
-    CreateTeam --> SendInvite[Send Team Invitation]
+    RegisterEvent --> CreateTeam["Create Team"]
+    CreateTeam --> SendInvite["Send Team Invitation"]
     
-    OtherParticipant([Other Participant]) --> ViewInvite[View Invitation]
-    ViewInvite --> AcceptInvite{Accept?}
+    OtherParticipant([Other Participant]) --> ViewInvite["View Invitation"]
+    ViewInvite --> AcceptInvite{"Accept?"}
     
-    AcceptInvite -->|Yes| JoinTeam[Join as Team Member]
-    AcceptInvite -->|No| RejectInvite[Reject]
+    AcceptInvite -->|Yes| JoinTeam["Join as Team Member"]
+    AcceptInvite -->|No| RejectInvite["Reject"]
     
-    JoinTeam --> InternalManage[Leader Management: Kick/Transfer Role]
+    JoinTeam --> InternalManage["Leader Management: Kick/Transfer Role"]
     InternalManage --> TeamReady([Team Ready])
 ```
 ### 4. Competition & Mentorship (Hackathon Execution)
@@ -68,18 +68,18 @@ flowchart TD
 This flow occurs in real-time during the event. Teams develop their projects, request mentor assistance when stuck, and submit their final work.
 ```mermaid
 flowchart TD
-    TeamReady([Team Coding]) --> GotBug{Need Help?}
+    TeamReady([Team Coding]) --> GotBug{"Need Help?"}
     
-    GotBug -->|Yes| CreateReq[Create Mentorship Request]
+    GotBug -->|Yes| CreateReq["Create Mentorship Request"]
     CreateReq --> MentorPool[(Request Pool)]
     
-    Mentor([Mentor]) --> AcceptReq[Accept Request]
-    AcceptReq --> ResolveReq[Resolve Issue]
+    Mentor([Mentor]) --> AcceptReq["Accept Request"]
+    AcceptReq --> ResolveReq["Resolve Issue"]
     ResolveReq --> FinishCoding
     
-    GotBug -->|No| FinishCoding[Finalize Project]
+    GotBug -->|No| FinishCoding["Finalize Project"]
     
-    FinishCoding --> SubmitProject[Submit Project (Submission)]
+    FinishCoding --> SubmitProject["Submit Project (Submission)"]
     SubmitProject --> WaitJudging([Wait for Judging])
 ```
 ### 5. Judging, Ranking & Reporting
@@ -88,18 +88,18 @@ flowchart TD
 The final flow to conclude the hackathon. It covers the evaluation of submissions, announcing results, and generating reports.
 ```mermaid
 flowchart TD
-    Organizer([Organizer]) --> AssignJudge[Assign Judges]
+    Organizer([Organizer]) --> AssignJudge["Assign Judges"]
     AssignJudge --> JudgeEvaluate
     
-    Judge([Judge]) --> ViewSubmission[View Team Submissions]
-    ViewSubmission --> JudgeEvaluate[Score based on Criteria]
+    Judge([Judge]) --> ViewSubmission["View Team Submissions"]
+    ViewSubmission --> JudgeEvaluate["Score based on Criteria"]
     
-    JudgeEvaluate --> CalcRanking[Calculate Rankings]
+    JudgeEvaluate --> CalcRanking["Calculate Rankings"]
     %% Automatically advances rounds
-    CalcRanking --> GivePrize[Award Prizes]
+    CalcRanking --> GivePrize["Award Prizes"]
     
-    GivePrize --> Dashboard[View Overall Dashboard]
-    Dashboard --> ExportData[Export Excel/CSV Reports]
+    GivePrize --> Dashboard["View Overall Dashboard"]
+    Dashboard --> ExportData["Export Excel/CSV Reports"]
     ExportData --> EndHackathon([End Hackathon Event])
 ```
 ***
