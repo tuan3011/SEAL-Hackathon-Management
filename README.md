@@ -1,7 +1,7 @@
 # 🦭 SEAL Hackathon Management System
 > **A full-stack, comprehensive platform designed to organize, manage, and scale hackathon events seamlessly.**
 SEAL Hackathon Management System handles everything from participant registration and team formation to mentor matchmaking, judge scoring, and dynamic round advancements. Built with modern web technologies, it provides a robust and scalable solution for hackathon organizers, participants, mentors, and judges.
----
+***
 ## ✨ Key Features
 - **🔐 Role-Based Access Control**: Secure login, routing, and specialized dashboards tailored for Admins, Organizers, Judges, Mentors, and Participants.
 - **👥 Team Management & Invitations**: Seamlessly create teams, invite members, and manage team profiles and submissions.
@@ -9,7 +9,7 @@ SEAL Hackathon Management System handles everything from participant registratio
 - **⚖️ Judge Assignment & Multi-Criteria Scoring**: Assign judges to specific tracks or teams, and evaluate projects across customizable scoring criteria.
 - **🏆 Dynamic Leaderboard & Round Advancements**: Real-time tracking of scores, automatic rankings, and dynamic advancement of teams to subsequent hackathon rounds.
 - **🔔 Real-Time Notifications & Emails**: Stay updated with Server-Sent Events (SSE) and integrated email alerts for important milestones, invitations, and announcements.
----
+***
 ## 🛠️ Tech Stack
 ### Backend
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
@@ -24,7 +24,7 @@ SEAL Hackathon Management System handles everything from participant registratio
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ### Database
 ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
----
+***
 ## ⚙️ Local Setup / Installation Instructions
 ### Prerequisites
 - Java 17 (or higher)
@@ -65,14 +65,14 @@ Start the Vite development server:
 npm run dev
 ```
 *The frontend will typically be accessible at `http://localhost:5173`.*
----
+***
 ## 📖 API Documentation
 This project uses **Swagger UI** for comprehensive API documentation and manual endpoint testing.
 Once the backend server is running, you can view and interact with the RESTful APIs by navigating to:
 **[`http://localhost:8080/swagger-ui.html`](http://localhost:8080/swagger-ui.html)**
----
+***
 ## 🤝 Contributors
 Contributions, issues, and feature requests are welcome!
 - **Vo Thanh Tuan** - *Initial work & Core Development* - [tuan3011](https://github.com/tuan3011)
----
+***
 *Made with ❤️.*
