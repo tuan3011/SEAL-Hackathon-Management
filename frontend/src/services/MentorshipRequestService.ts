@@ -9,6 +9,11 @@ export interface MentorshipRequest {
     title: string;
     description: string;
     status: string;
+    resolvedAt?: string;
+    answer?: string;
+    rejectReason?: string;
+    mentorName?: string;
+    createdAt: string;
 }
 
 export interface CreateMentorshipRequest {
@@ -47,6 +52,15 @@ const rejectRequest = async (id: number, payload: { reason: string }): Promise<M
     return response.data.data;
 };
 
+const cancelRequest = async (id: number): Promise<void> => {
+    await api.delete(`/mentorship-requests/${id}`);
+};
+
+const releaseRequest = async (id: number): Promise<MentorshipRequest> => {
+    const response = await api.patch(`/mentorship-requests/${id}/release`);
+    return response.data.data;
+};
+
 export const MentorshipRequestService = {
     createRequest,
     getOpenRequests,
@@ -54,4 +68,6 @@ export const MentorshipRequestService = {
     acceptRequest,
     resolveRequest,
     rejectRequest,
+    cancelRequest,
+    releaseRequest,
 };

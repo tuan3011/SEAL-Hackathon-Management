@@ -99,6 +99,14 @@ public class MentorshipRequestServiceImpl implements MentorshipRequestService {
             throw new IllegalStateException("This request is no longer open.");
         }
 
+        if (request.getTeam().getTrack() != null) {
+            boolean isAssignedToTrack = trackMentorRepository.existsByTrackIdAndMentorId(
+                    request.getTeam().getTrack().getId(), mentor.getId());
+            if (!isAssignedToTrack) {
+                throw new AccessDeniedException("You are not assigned to the track of this team.");
+            }
+        }
+
         request.setMentor(mentor);
         request.setStatus(MentorshipRequestStatus.IN_PROGRESS);
         

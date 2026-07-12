@@ -4,16 +4,21 @@ const API_URL = '/submissions';
 
 export interface Submission {
     id: number;
-    content: string;
     teamId: number;
     roundId: number;
+    repositoryUrl: string;
+    demoUrl: string;
+    reportUrl: string;
+    status: string;
     submittedAt: string;
 }
 
 export interface CreateSubmissionRequest {
-    content: string;
     teamId: number;
     roundId: number;
+    repositoryUrl: string;
+    demoUrl: string;
+    reportUrl: string;
 }
 
 const createSubmission = async (submission: CreateSubmissionRequest): Promise<Submission> => {

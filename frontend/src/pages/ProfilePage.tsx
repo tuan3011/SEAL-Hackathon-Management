@@ -61,7 +61,14 @@ const ProfilePage: React.FC = () => {
         e.preventDefault();
         setSaving(true);
         try {
-            const response = await api.put('/profile/me', form);
+            const payload = {
+                fullName: form.fullName.trim() || undefined,
+                fptStudentId: form.fptStudentId.trim() || undefined,
+                schoolName: form.schoolName.trim() || undefined,
+                githubUrl: form.githubUrl.trim() || undefined,
+                skills: form.skills.trim() || undefined
+            };
+            const response = await api.put('/profile/me', payload);
             setProfile(prev => prev ? { ...prev, ...response.data.data } : prev);
             toast.success('Profile updated successfully!');
         } catch {
