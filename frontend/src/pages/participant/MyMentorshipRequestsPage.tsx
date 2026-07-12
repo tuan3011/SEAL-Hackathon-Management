@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { MentorshipRequestService, MentorshipRequest } from '../../services/MentorshipRequestService';
 import Modal from '../../components/Modal';
 import RequestMentorshipModal from '../../components/mentorship/RequestMentorshipModal';
-import { HelpCircle, Plus, Info } from 'lucide-react';
+import { HelpCircle, Plus, Info, Trash2 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const MyMentorshipRequestsPage: React.FC = () => {
     const [requests, setRequests] = useState<MentorshipRequest[]>([]);
@@ -10,6 +11,7 @@ const MyMentorshipRequestsPage: React.FC = () => {
     const [error, setError] = useState('');
     const [selectedRequest, setSelectedRequest] = useState<MentorshipRequest | null>(null);
     const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+    const [isCancelling, setIsCancelling] = useState(false);
 
     const fetchMyRequests = async () => {
         try {
@@ -27,13 +29,29 @@ const MyMentorshipRequestsPage: React.FC = () => {
         fetchMyRequests();
     }, []);
 
+    const handleCancelRequest = async (id: number) => {
+        if (!window.confirm('Are you sure you want to cancel this mentorship request?')) return;
+        
+        setIsCancelling(true);
+        try {
+            await MentorshipRequestService.cancelRequest(id);
+            toast.success('Mentorship request cancelled successfully.');
+            setSelectedRequest(null);
+            fetchMyRequests();
+        } catch (err: any) {
+            toast.error(err.response?.data?.error?.message || 'Failed to cancel the request.');
+        } finally {
+            setIsCancelling(false);
+        }
+    };
+
     const summary = useMemo(() => {
         return requests.reduce(
             (acc, req) => {
                 acc[req.status] = (acc[req.status] || 0) + 1;
                 return acc;
             },
-            { OPEN: 0, IN_PROGRESS: 0, RESOLVED: 0, REJECTED: 0 } as Record<string, number>
+            { OPEN: 0, IN_PROGRESS: 0, RESOLVED: 0, REJECTED: 0, CANCELLED: 0 } as Record<string, number>
         );
     }, [requests]);
 
@@ -43,6 +61,7 @@ const MyMentorshipRequestsPage: React.FC = () => {
             case 'IN_PROGRESS': return 'bg-blue-100 text-blue-800 border-blue-200';
             case 'RESOLVED': return 'bg-green-100 text-green-800 border-green-200';
             case 'REJECTED': return 'bg-red-100 text-red-800 border-red-200';
+            case 'CANCELLED': return 'bg-gray-100 text-gray-600 border-gray-300';
             default: return 'bg-gray-100 text-gray-800 border-gray-200';
         }
     };
@@ -76,7 +95,7 @@ const MyMentorshipRequestsPage: React.FC = () => {
 
             {/* Status Summary */}
             {requests.length > 0 && (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
                     <div className="p-4 bg-yellow-50 border border-yellow-100 rounded-lg text-center">
                         <p className="text-yellow-600 text-sm font-semibold uppercase">Open</p>
                         <p className="text-3xl font-bold text-yellow-700">{summary.OPEN}</p>
@@ -92,6 +111,10 @@ const MyMentorshipRequestsPage: React.FC = () => {
                     <div className="p-4 bg-red-50 border border-red-100 rounded-lg text-center">
                         <p className="text-red-600 text-sm font-semibold uppercase">Rejected</p>
                         <p className="text-3xl font-bold text-red-700">{summary.REJECTED}</p>
+                    </div>
+                    <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg text-center">
+                        <p className="text-gray-600 text-sm font-semibold uppercase">Cancelled</p>
+                        <p className="text-3xl font-bold text-gray-700">{summary.CANCELLED}</p>
                     </div>
                 </div>
             )}
@@ -151,7 +174,7 @@ const MyMentorshipRequestsPage: React.FC = () => {
             {/* View Details Modal */}
             <Modal
                 isOpen={!!selectedRequest}
-                onClose={() => setSelectedRequest(null)}
+                onClose={() => { if (!isCancelling) setSelectedRequest(null); }}
                 title="Mentorship Request Details"
             >
                 {selectedRequest && (
@@ -201,11 +224,27 @@ const MyMentorshipRequestsPage: React.FC = () => {
                             </div>
                         )}
 
-                        <div className="flex justify-end mt-6 pt-4 border-t border-gray-100">
+                        <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-100">
+                            {selectedRequest.status === 'OPEN' && (
+                                <button
+                                    type="button"
+                                    className="px-5 py-2 text-sm font-semibold text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors shadow-sm flex items-center gap-2 disabled:opacity-50"
+                                    onClick={() => handleCancelRequest(selectedRequest.id)}
+                                    disabled={isCancelling}
+                                >
+                                    {isCancelling ? (
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600"></div>
+                                    ) : (
+                                        <Trash2 size={16} />
+                                    )}
+                                    {isCancelling ? 'Cancelling...' : 'Cancel Request'}
+                                </button>
+                            )}
                             <button
                                 type="button"
-                                className="px-5 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
+                                className="px-5 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm disabled:opacity-50"
                                 onClick={() => setSelectedRequest(null)}
+                                disabled={isCancelling}
                             >
                                 Close
                             </button>

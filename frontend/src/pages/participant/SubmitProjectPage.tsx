@@ -27,7 +27,7 @@ const SubmitProjectPage: React.FC = () => {
     const [roundId, setRoundId] = useState<number | ''>('');
     const [repositoryUrl, setRepositoryUrl] = useState('');
     const [demoUrl, setDemoUrl] = useState('');
-    const [reportUrl] = useState('');
+    const [reportUrl, setReportUrl] = useState('');
     
     const [myTeam, setMyTeam] = useState<TeamDetails | null>(null);
     const [rounds, setRounds] = useState<Round[]>([]);
@@ -39,6 +39,7 @@ const SubmitProjectPage: React.FC = () => {
     // Validation states
     const [repoError, setRepoError] = useState('');
     const [demoError, setDemoError] = useState('');
+    const [reportError, setReportError] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,7 +48,7 @@ const SubmitProjectPage: React.FC = () => {
                 const [teamRes, roundsRes, eventRes] = await Promise.all([
                     api.get(`/teams/my-team/event/${eventId}`),
                     api.get(`/rounds/hackathon/${eventId}`),
-                    api.get(`/events/${eventId}`)
+                    api.get(`/hackathon-events/id/${eventId}`)
                 ]);
                 setMyTeam(teamRes.data.data);
                 setEventData(eventRes.data.data);
@@ -92,12 +93,8 @@ const SubmitProjectPage: React.FC = () => {
 
     const isValidUrl = (url: string) => {
         if (!url) return true; // Optional fields are valid if empty
-        try {
-            new URL(url);
-            return url.startsWith('http://') || url.startsWith('https://');
-        } catch {
-            return false;
-        }
+        const regex = /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/;
+        return regex.test(url);
     };
 
     const validateForm = () => {
@@ -118,6 +115,13 @@ const SubmitProjectPage: React.FC = () => {
             valid = false;
         } else {
             setDemoError('');
+        }
+
+        if (reportUrl && !isValidUrl(reportUrl)) {
+            setReportError('Please enter a valid URL (must start with http:// or https://)');
+            valid = false;
+        } else {
+            setReportError('');
         }
 
         if (!roundId) {
@@ -143,9 +147,9 @@ const SubmitProjectPage: React.FC = () => {
             await api.post('/submissions', {
                 teamId: myTeam.id,
                 roundId: roundId,
-                repositoryUrl,
-                demoUrl,
-                reportUrl
+                repositoryUrl: repositoryUrl.trim(),
+                demoUrl: demoUrl.trim() || undefined,
+                reportUrl: reportUrl.trim() || undefined
             });
             toast.success('Project submitted successfully!');
             navigate(`/dashboard`);
@@ -306,7 +310,37 @@ const SubmitProjectPage: React.FC = () => {
                         )}
                     </div>
 
-                    {error && !repoError && !demoError && (
+                    {/* Report URL */}
+                    <div>
+                        <label htmlFor="reportUrl" className="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1.5">
+                            Report URL <span className="text-slate-400 font-normal normal-case">(Optional)</span>
+                        </label>
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <LinkIcon size={16} />
+                            </div>
+                            <input
+                                id="reportUrl"
+                                type="text"
+                                placeholder="https://docs.google.com/..."
+                                value={reportUrl}
+                                onChange={(e) => {
+                                    setReportUrl(e.target.value);
+                                    if (reportError) validateForm();
+                                }}
+                                className={`w-full pl-10 pr-4 py-2.5 bg-white border rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container/20 transition-all ${
+                                    reportError ? 'border-red-300 focus:border-red-500' : 'border-outline-variant focus:border-primary-container'
+                                }`}
+                            />
+                        </div>
+                        {reportError ? (
+                            <p className="mt-1.5 text-xs text-red-600 font-medium">{reportError}</p>
+                        ) : (
+                            <p className="mt-1.5 text-xs text-on-surface-variant">Provide a link to your project report or documentation.</p>
+                        )}
+                    </div>
+
+                    {error && !repoError && !demoError && !reportError && (
                         <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-sm text-red-600">
                             <AlertCircle size={16} className="shrink-0" />
                             <span>{error}</span>

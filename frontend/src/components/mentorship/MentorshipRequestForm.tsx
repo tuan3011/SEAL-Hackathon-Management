@@ -69,8 +69,8 @@ const MentorshipRequestForm: React.FC<MentorshipRequestFormProps> = ({ onSuccess
         try {
             await MentorshipRequestService.createRequest({
                 teamId: teamId as number,
-                title: topic,
-                description: description
+                title: topic.trim(),
+                description: description.trim() || undefined
             });
             toast.success('Mentorship request submitted successfully!');
             // Clear form data is handled by unmounting or the parent component

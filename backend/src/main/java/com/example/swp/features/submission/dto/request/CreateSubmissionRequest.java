@@ -12,12 +12,14 @@ public class CreateSubmissionRequest {
     @NotNull(message = "Round ID cannot be null")
     private Long roundId;
 
+    @jakarta.validation.constraints.NotBlank(message = "Repository URL is required")
     @Pattern(regexp = "^(https?://)?(www\\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$", message = "Invalid repository URL format")
     private String repositoryUrl;
 
     @Pattern(regexp = "^(https?://)?(www\\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$", message = "Invalid demo URL format")
     private String demoUrl;
 
+    @Pattern(regexp = "^(https?://)?(www\\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$", message = "Invalid report URL format")
     private String reportUrl;
 
     public Long getTeamId() { return teamId; }

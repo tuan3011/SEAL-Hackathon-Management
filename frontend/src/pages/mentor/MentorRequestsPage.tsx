@@ -13,6 +13,9 @@ const MentorRequestsPage: React.FC = () => {
     const [declineRequestId, setDeclineRequestId] = useState<number | null>(null);
     const [declineReason, setDeclineReason] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    
+    // Accept State
+    const [acceptingId, setAcceptingId] = useState<number | null>(null);
 
     const fetchOpenRequests = async () => {
         try {
@@ -32,11 +35,14 @@ const MentorRequestsPage: React.FC = () => {
 
     const handleAccept = async (requestId: number) => {
         try {
+            setAcceptingId(requestId);
             await MentorshipRequestService.acceptRequest(requestId);
             toast.success('Request accepted! It has been added to your dashboard.');
             fetchOpenRequests(); // Refresh the list
         } catch (err: any) {
             toast.error(err.response?.data?.error?.message || 'Failed to accept the request.');
+        } finally {
+            setAcceptingId(null);
         }
     };
 
@@ -87,10 +93,15 @@ const MentorRequestsPage: React.FC = () => {
                             <div className="flex items-center gap-2">
                                 <button 
                                     onClick={() => handleAccept(req.id)}
-                                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
+                                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
                                     title="Accept Request"
+                                    disabled={acceptingId !== null || isSubmitting}
                                 >
-                                    <Check size={16} />
+                                    {acceptingId === req.id ? (
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                                    ) : (
+                                        <Check size={16} />
+                                    )}
                                     Accept
                                 </button>
                                 <button 
@@ -98,8 +109,9 @@ const MentorRequestsPage: React.FC = () => {
                                         setDeclineRequestId(req.id);
                                         setDeclineReason('');
                                     }}
-                                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-white border border-red-200 rounded-lg hover:bg-red-50 transition-colors"
+                                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-white border border-red-200 rounded-lg hover:bg-red-50 transition-colors disabled:opacity-50"
                                     title="Decline Request"
+                                    disabled={acceptingId !== null || isSubmitting}
                                 >
                                     <X size={16} />
                                     Decline

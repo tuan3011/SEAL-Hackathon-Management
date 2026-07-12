@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MentorshipRequestService, MentorshipRequest } from '../../services/MentorshipRequestService';
 import toast from 'react-hot-toast';
 import Modal from '../../components/Modal';
+import { RefreshCcw } from 'lucide-react';
 
 const MentorDashboardPage: React.FC = () => {
     const [myRequests, setMyRequests] = useState<MentorshipRequest[]>([]);
@@ -44,6 +45,23 @@ const MentorDashboardPage: React.FC = () => {
             fetchMyRequests();
         } catch (err: any) {
             toast.error(err.response?.data?.error?.message || 'Failed to send answer.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleReleaseRequest = async () => {
+        if (!selectedRequest) return;
+        if (!window.confirm('Are you sure you want to release this request back to the pool?')) return;
+        
+        try {
+            setIsSubmitting(true);
+            await MentorshipRequestService.releaseRequest(selectedRequest.id);
+            toast.success('Request released back to the pool.');
+            setSelectedRequest(null);
+            fetchMyRequests();
+        } catch (err: any) {
+            toast.error(err.response?.data?.error?.message || 'Failed to release the request.');
         } finally {
             setIsSubmitting(false);
         }
@@ -146,6 +164,15 @@ const MentorDashboardPage: React.FC = () => {
                                     disabled={isSubmitting}
                                 />
                                 <div className="flex justify-end gap-3 mt-4">
+                                    <button
+                                        type="button"
+                                        className="px-4 py-2 text-sm font-medium text-amber-700 bg-amber-100 rounded-lg hover:bg-amber-200 transition-colors flex items-center gap-2"
+                                        onClick={handleReleaseRequest}
+                                        disabled={isSubmitting}
+                                    >
+                                        <RefreshCcw size={16} />
+                                        Release Task
+                                    </button>
                                     <button
                                         type="button"
                                         className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
