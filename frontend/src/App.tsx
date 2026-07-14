@@ -11,6 +11,7 @@ import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
 import CertificatesPage from './pages/CertificatesPage';
 import NotificationsPage from './pages/NotificationsPage';
+import HelpCenterPage from './pages/HelpCenterPage';
 import AdminMentorProfilePage from './pages/admin/AdminMentorProfilePage';
 import SystemPreferencesPage from './pages/admin/SystemPreferencesPage';
 import PrivateRoute from './components/PrivateRoute';
@@ -95,6 +96,7 @@ function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/notifications" element={<NotificationsPage />} />
+              <Route path="/help" element={<HelpCenterPage />} />
               <Route path="/certificates" element={<CertificatesPage />} />
 
               {/* Participant Routes */}

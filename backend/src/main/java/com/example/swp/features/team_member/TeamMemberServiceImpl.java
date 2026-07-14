@@ -32,6 +32,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
+        if (team.getStatus() == com.example.swp.features.team.TeamStatus.DISQUALIFIED) {
+            throw new com.example.swp.exception.BadRequestException("Cannot modify members in a disqualified team.");
+        }
+
         if (team.getEvent().getStatus() != HackathonStatus.PUBLISHED) {
             throw new com.example.swp.exception.BadRequestException("Team modifications are only allowed during the registration phase.");
         }
@@ -80,6 +84,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         TeamMember member = teamMemberRepository.findById(teamMemberId)
                 .orElseThrow(() -> new ResourceNotFoundException("Team member not found"));
                 
+        if (member.getTeam().getStatus() == com.example.swp.features.team.TeamStatus.DISQUALIFIED) {
+            throw new com.example.swp.exception.BadRequestException("Cannot modify members in a disqualified team.");
+        }
+
         if (member.getTeam().getEvent().getStatus() != HackathonStatus.PUBLISHED) {
             throw new com.example.swp.exception.BadRequestException("Team modifications are only allowed during the registration phase.");
         }
@@ -108,6 +116,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         User currentUser = getCurrentUser();
         Team team = teamRepository.findById(teamId)
                 .orElseThrow(() -> new ResourceNotFoundException("Team not found"));
+
+        if (team.getStatus() == com.example.swp.features.team.TeamStatus.DISQUALIFIED) {
+            throw new com.example.swp.exception.BadRequestException("Cannot modify members in a disqualified team.");
+        }
 
         if (team.getEvent().getStatus() != HackathonStatus.PUBLISHED) {
             throw new com.example.swp.exception.BadRequestException("Team modifications are only allowed during the registration phase.");
@@ -150,6 +162,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         TeamMember member = teamMemberRepository.findByTeamIdAndUserId(teamId, currentUser.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("You are not a member of this team"));
 
+        if (member.getTeam().getStatus() == com.example.swp.features.team.TeamStatus.DISQUALIFIED) {
+            throw new com.example.swp.exception.BadRequestException("Cannot leave a disqualified team.");
+        }
+
         if (member.getTeam().getEvent().getStatus() != HackathonStatus.PUBLISHED) {
             throw new com.example.swp.exception.BadRequestException("Team modifications are only allowed during the registration phase.");
         }
@@ -173,6 +189,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         TeamMember currentLeader = teamMemberRepository.findByTeamIdAndUserId(request.getTeamId(), currentUser.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("You are not a member of this team"));
+
+        if (currentLeader.getTeam().getStatus() == com.example.swp.features.team.TeamStatus.DISQUALIFIED) {
+            throw new com.example.swp.exception.BadRequestException("Cannot transfer leadership in a disqualified team.");
+        }
 
         if (currentLeader.getTeam().getEvent().getStatus() != HackathonStatus.PUBLISHED) {
             throw new com.example.swp.exception.BadRequestException("Team modifications are only allowed during the registration phase.");

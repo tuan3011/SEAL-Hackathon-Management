@@ -7,6 +7,7 @@ export interface Team {
     name: string;
     description: string;
     trackId: number;
+    status?: string;
     // Add other fields from TeamResponse as needed
 }
 

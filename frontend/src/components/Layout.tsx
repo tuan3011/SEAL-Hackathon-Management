@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, NavLink, useLocation } from 'react-router-dom';
 import NotificationBell from './NotificationBell';
 import Input from './ui/Input';
@@ -7,6 +7,7 @@ import {
     LogOut, HelpCircle, User as UserIcon, Menu, X, Search, MessageSquare
 } from 'lucide-react';
 import { Role, getUserRole } from '../services/authUtils';
+import api from '../services/api';
 
 const SidebarItem: React.FC<{ to: string, icon: React.ReactNode, label: string, onClick?: () => void }> = ({ to, icon, label, onClick }) => {
     const location = useLocation();
@@ -141,6 +142,24 @@ const Sidebar: React.FC<{ isOpen: boolean, closeSidebar: () => void }> = ({ isOp
 };
 
 const Header: React.FC<{ toggleSidebar: () => void }> = ({ toggleSidebar }) => {
+    const [eventName, setEventName] = useState<string>('');
+
+    useEffect(() => {
+        const fetchEvent = async () => {
+            try {
+                const response = await api.get('/hackathon-events');
+                const events = response.data.data;
+                const activeEvent = events.find((e: any) => e.status === 'REGISTRATION' || e.status === 'IN_PROGRESS');
+                if (activeEvent) {
+                    setEventName(activeEvent.name);
+                }
+            } catch (err) {
+                console.error("Failed to load active event", err);
+            }
+        };
+        fetchEvent();
+    }, []);
+
     return (
         <header className="flex items-center justify-between w-full h-16 px-4 md:px-8 bg-white border-b border-neutral-border sticky top-0 z-10 shadow-sm">
             <div className="flex items-center gap-4 flex-1">
@@ -151,11 +170,12 @@ const Header: React.FC<{ toggleSidebar: () => void }> = ({ toggleSidebar }) => {
                     <Menu size={20} />
                 </button>
                 <div className="hidden md:block w-full max-w-md">
-                    <Input 
-                        placeholder="Search..." 
-                        leftIcon={<Search size={16} />}
-                        className="bg-neutral-base border-none h-10"
-                    />
+                    {eventName && (
+                        <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-100 rounded-lg text-brand-navy font-semibold w-fit">
+                            <Trophy size={18} className="text-brand-orange" />
+                            {eventName}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="flex items-center gap-3 md:gap-4">

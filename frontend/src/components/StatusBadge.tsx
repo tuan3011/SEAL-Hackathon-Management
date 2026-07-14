@@ -12,6 +12,10 @@ const statusConfig: Record<string, { label: string; className: string }> = {
         label: 'Draft',
         className: 'bg-slate-100 text-slate-700 border border-slate-200',
     },
+    PUBLISHED: {
+        label: 'Published',
+        className: 'bg-blue-50 text-blue-700 border border-blue-200',
+    },
     REGISTRATION_OPEN: {
         label: 'Registration Open',
         className: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
@@ -19,6 +23,14 @@ const statusConfig: Record<string, { label: string; className: string }> = {
     ONGOING: {
         label: 'Ongoing',
         className: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
+    },
+    IN_PROGRESS: {
+        label: 'Ongoing',
+        className: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
+    },
+    COMPLETED: {
+        label: 'Completed',
+        className: 'bg-slate-100 text-slate-500 border border-slate-200',
     },
     ENDED: {
         label: 'Ended',

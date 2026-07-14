@@ -142,7 +142,8 @@ const ScoringPage: React.FC = () => {
             await api.post('/scores', {
                 submissionId: Number(submissionId),
                 scores: scores,
-                isFinalized: isFinalized
+                isFinalized: isFinalized,
+                finalized: isFinalized
             });
             toast.success(isFinalized ? 'Scores submitted successfully!' : 'Draft saved successfully!');
             navigate('/judge/dashboard');

@@ -238,6 +238,13 @@ CREATE TABLE prize (
                        track_id           BIGINT,
                        winning_team_id    BIGINT,
                        rank               INT,
+                       cash DECIMAL(12, 2) NULL,
+                       has_cup BIT NULL,
+                       has_certificate BIT NULL,
+                       cup NVARCHAR(255) NULL,
+                       certificate NVARCHAR(255) NULL,
+                       currency NVARCHAR(50) NOT NULL DEFAULT 'VND',
+
                        FOREIGN KEY (hackathon_event_id) REFERENCES hackathon_event(id),
                        FOREIGN KEY (track_id)           REFERENCES track(id),
                        FOREIGN KEY (winning_team_id)    REFERENCES team(id)
@@ -501,13 +508,6 @@ INSERT INTO submission (team_id, round_id, repository_url, demo_url, report_url,
                                                                                               (5, 1, 'https://github.com/team-epsilon/eduplatform',   'https://eduplatform.demo.fpt.edu.vn',     'https://docs.google.com/team-epsilon-report',     1); -- submission id=5
 
 
--- -----------------------------------------------
--- 5.14 prize (3 giải thưởng cho event 1)
--- -----------------------------------------------
-INSERT INTO prize (name, description, hackathon_event_id, track_id, winning_team_id, rank) VALUES
-                                                                                               (N'Giải Nhất',          N'50 triệu VNĐ + Cơ hội thực tập tại FPT Software',   1, NULL, NULL, 1),
-                                                                                               (N'Giải Nhì',           N'30 triệu VNĐ + Voucher khóa học Coursera',           1, NULL, NULL, 2),
-                                                                                               (N'Best AI Solution',   N'20 triệu VNĐ – Giải đặc biệt cho track AI',         1, 1,    NULL, NULL);
 
 -- -----------------------------------------------
 -- 5.16 notification (sample notifications)

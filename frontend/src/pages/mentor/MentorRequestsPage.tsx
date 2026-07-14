@@ -85,8 +85,12 @@ const MentorRequestsPage: React.FC = () => {
                             <div>
                                 <p className="font-semibold text-lg">{req.title}</p>
                                 <p className="text-sm text-gray-600">
-                                    {/* Handle both new nested team object or old teamName string gracefully */}
                                     From team <span className="font-bold">{req.team?.name || (req as any).teamName || 'Unknown Team'}</span>
+                                    {req.trackName && (
+                                        <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-blue-600 px-2 py-0.5 bg-blue-50 border border-blue-100 rounded-full">
+                                            {req.trackName}
+                                        </span>
+                                    )}
                                 </p>
                                 <p className="mt-2 text-gray-700">{req.description}</p>
                             </div>

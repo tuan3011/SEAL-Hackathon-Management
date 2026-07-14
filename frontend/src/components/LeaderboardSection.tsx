@@ -5,9 +5,10 @@ import { Trophy, Medal, AlertCircle } from 'lucide-react';
 interface LeaderboardSectionProps {
     rounds: any[];
     tracks: any[];
+    prizes?: any[];
 }
 
-const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({ rounds, tracks }) => {
+const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({ rounds, tracks, prizes = [] }) => {
     const [selectedRoundId, setSelectedRoundId] = useState<number | ''>('');
     const [selectedTrackId, setSelectedTrackId] = useState<number | 'all'>('all');
     const [rankings, setRankings] = useState<any[]>([]);
@@ -107,6 +108,7 @@ const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({ rounds, tracks 
                                 <tr className="bg-gray-50/50 border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500 font-semibold">
                                     <th className="py-4 px-6 text-center w-16">Rank</th>
                                     <th className="py-4 px-6">Team Details</th>
+                                    <th className="py-4 px-6">Prize</th>
                                     <th className="py-4 px-6 text-right">Final Score</th>
                                 </tr>
                             </thead>
@@ -136,6 +138,22 @@ const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({ rounds, tracks 
                                                         </span>
                                                     )}
                                                 </div>
+                                            </td>
+                                            <td className="py-4 px-6">
+                                                {(() => {
+                                                    const wonPrizes = prizes.filter(p => p.winningTeamId === team.teamId);
+                                                    if (wonPrizes.length === 0) return <span className="text-gray-400 text-sm">-</span>;
+                                                    return (
+                                                        <div className="flex flex-col gap-1 items-start">
+                                                            {wonPrizes.map((p, idx) => (
+                                                                <span key={idx} className="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-1 rounded shadow-sm">
+                                                                    <Trophy size={12} className="text-amber-500" />
+                                                                    {p.name}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    );
+                                                })()}
                                             </td>
                                             <td className="py-4 px-6 text-right">
                                                 <span className="text-xl font-black text-gray-900">{team.finalScore.toFixed(2)}</span>

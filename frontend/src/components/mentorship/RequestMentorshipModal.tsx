@@ -1,14 +1,16 @@
 import React from 'react';
 import Modal from '../Modal';
 import MentorshipRequestForm from './MentorshipRequestForm';
+import { Team } from '../../services/TeamService';
 
 interface RequestMentorshipModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSuccess: () => void;
+    myTeams?: Team[];
 }
 
-const RequestMentorshipModal: React.FC<RequestMentorshipModalProps> = ({ isOpen, onClose, onSuccess }) => {
+const RequestMentorshipModal: React.FC<RequestMentorshipModalProps> = ({ isOpen, onClose, onSuccess, myTeams }) => {
     return (
         <Modal
             isOpen={isOpen}
@@ -23,6 +25,7 @@ const RequestMentorshipModal: React.FC<RequestMentorshipModalProps> = ({ isOpen,
                 <MentorshipRequestForm 
                     onSuccess={onSuccess} 
                     onCancel={onClose} 
+                    myTeamsProp={myTeams}
                 />
             </div>
         </Modal>

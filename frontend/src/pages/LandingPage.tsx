@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-    Trophy, Rocket, ArrowRight, Brain, Gavel, 
+    Trophy, Rocket, ArrowRight, Brain, Gavel, Lightbulb, Users, 
     ChevronDown, Eye, Maximize, Calendar, 
     Mail, Phone, MapPin, ExternalLink,
     CheckCircle2, Clock, Award, ShieldAlert, BookOpen
@@ -160,214 +160,105 @@ const LandingPage: React.FC = () => {
                 </div>
             </section>
 
-            {/* Choose Your Path Section */}
-            <section className="py-12 max-w-[1440px] mx-auto px-margin-desktop">
-                <div className="mb-12 space-y-2 text-center lg:text-left">
-                    <h2 className="font-headline-lg text-headline-lg text-on-surface">Choose Your Path</h2>
-                    <p className="font-body-md text-body-md text-on-surface-variant">Whether you are building, guiding, or judging, there is a place for you.</p>
-                </div>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Participants */}
-                    <div className="relative overflow-hidden rounded-2xl group border border-outline-variant hover:border-primary-container transition-soft shadow-sm bg-white">
-                        <img 
-                            className="w-full h-64 object-cover transition-soft group-hover:scale-105" 
-                            alt="Participants collaborating"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9qYPqNHn7Ig-mKGQWJHWlO9rZTe42u2aJeD9owVt8hw0vNole6Hz6dcMmvglfIOvpVSaTbHdhc2XQthVzTUUAR77jyXQRV2URhDnEOhf59cHuNkzQNpcV-GP-5izaKJ_FAzGQiHTqbeEzajogVPgU7LI5cS-cnms4MTDgNAnPTDABMZ8UPgcbFzWloLKs0v_FpXcsswsGtAYB4NpUsljehjmICdZd9QLMaahFlAlnGxyNceQ6GvZhoNmp8uFE5BttwA6HnFlV8Zk7" 
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
-                        <div className="absolute bottom-0 left-0 p-6 w-full space-y-2">
-                            <h4 className="font-headline-md text-headline-md text-brand-navy">Participants</h4>
-                            <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Battle for the top spot, win scholarships, and build your dream portfolio.</p>
-                            <button 
-                                onClick={() => setIsParticipantModalOpen(true)}
-                                className="inline-flex items-center text-primary-container font-label-lg text-label-lg group-hover:translate-x-1 transition-all gap-1 cursor-pointer"
-                            >
-                                View Roadmap <ArrowRight size={14} />
-                            </button>
-                        </div>
-                    </div>
-                    {/* Judges */}
-                    <div className="relative overflow-hidden rounded-2xl group border border-outline-variant hover:border-primary-container transition-soft shadow-sm bg-white">
-                        <img 
-                            className="w-full h-64 object-cover transition-soft group-hover:scale-105" 
-                            alt="Judges evaluating"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCczrB77_J97Bwipbu6KdYGxjJsmNVne03dvpWTEStQxsH1hblpsDrFr87WBewHDxO5FCcIy7_2kvRUWee6ALuT3k-T1CvxZrL0EA9Jth585Hk4qPH3daxgx_t0wSQMWdlQsLBGM95qh6VzPua30CZc3Ea1N3QuYtd6H9mUETyNnTh450k1634W4fiRNophEFVe3GQgn3fGSJwFqI8z2FkjR-5sjbqXsrYzR3TkVqcv75cFD75utc_1Hp8pvKdgzZeVo2w8p1cFTSsa" 
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
-                        <div className="absolute bottom-0 left-0 p-6 w-full space-y-2">
-                            <h4 className="font-headline-md text-headline-md text-brand-navy">Judges</h4>
-                            <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Evaluate world-changing ideas and provide expert feedback to top talent.</p>
-                            <button 
-                                onClick={() => setIsJudgeModalOpen(true)}
-                                className="inline-flex items-center text-primary-container font-label-lg text-label-lg group-hover:translate-x-1 transition-all gap-1 cursor-pointer"
-                            >
-                                Criteria <ArrowRight size={14} />
-                            </button>
-                        </div>
-                    </div>
-                    {/* Mentors */}
-                    <div className="relative overflow-hidden rounded-2xl group border border-outline-variant hover:border-primary-container transition-soft shadow-sm bg-white">
-                        <img 
-                            className="w-full h-64 object-cover transition-soft group-hover:scale-105" 
-                            alt="Mentors guiding"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT288b-ZovEUZ8rYuZiPHZPoQv5gWf9Dcbd1PoHzp-BPSO3NGZ-FGPoyU8jg4OxA77998JKheoPfjthWRqqwPhP8NgXYFg2mcSvqcRpatTkDye_cOZXU5oHXJlazASxBUdxz9ctMEX_EZOnO2oeDXFriQRNDYh6IwR2uDGvU7AuwRk6TfxR8OGqUIP70_BInkj_Qbho40NI9Tar290qlKK8_eDBnbQmZsvF6kFcAQOFoneFpC5aNlMfpGkJ_HB6jOna3afE4OnGuTU" 
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
-                        <div className="absolute bottom-0 left-0 p-6 w-full space-y-2">
-                            <h4 className="font-headline-md text-headline-md text-brand-navy">Mentors</h4>
-                            <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Guide students through technical hurdles and share industry wisdom.</p>
-                            <button 
-                                onClick={() => setIsMentorModalOpen(true)}
-                                className="inline-flex items-center text-primary-container font-label-lg text-label-lg group-hover:translate-x-1 transition-all gap-1 cursor-pointer"
-                            >
-                                Join Panel <ArrowRight size={14} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Leaderboard Preview */}
-            <section className="bg-surface-container-low py-12 border-y border-outline-variant/30">
-                <div className="max-w-[1440px] mx-auto px-margin-desktop">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-                        <div>
-                            <h2 className="font-headline-lg text-headline-lg text-on-surface mb-2">Live Rankings</h2>
-                            <p className="font-body-md text-body-md text-on-surface-variant">The current standings in the race to the finish line.</p>
-                        </div>
-                        <button 
-                            onClick={() => navigate('/events')}
-                            className="px-5 py-2.5 bg-white border border-outline-variant rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:border-primary-container hover:text-primary transition-all flex items-center gap-2 cursor-pointer shadow-sm"
-                        >
-                            Full Leaderboard <Maximize size={16} className="text-brand-orange" />
-                        </button>
-                    </div>
-                    <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-floating">
-                        <table className="w-full border-collapse">
-                            <thead>
-                                <tr className="bg-surface-container-low border-b border-outline-variant/30">
-                                    <th className="text-left px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">Rank</th>
-                                    <th className="text-left px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">Team Name</th>
-                                    <th className="text-left px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">Score</th>
-                                    <th className="text-left px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">Status</th>
-                                    <th className="text-right px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-outline-variant/20">
-                                <tr className="hover:bg-neutral-base transition-colors">
-                                    <td className="px-6 py-5">
-                                        <div className="w-8 h-8 rounded-full bg-[#FFD700]/20 flex items-center justify-center font-bold text-[#b8860b]">1</div>
-                                    </td>
-                                    <td className="px-6 py-5 font-headline-sm text-headline-sm text-brand-navy">Code Ninjas</td>
-                                    <td className="px-6 py-5 font-body-md text-body-md font-bold text-primary-container">12,450 pts</td>
-                                    <td className="px-6 py-5">
-                                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[12px] font-bold">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2 animate-pulse"></span> ACTIVE
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-5 text-right">
-                                        <button className="text-on-surface-variant hover:text-primary-container p-1 rounded hover:bg-neutral-divider transition-colors">
-                                            <Eye size={18} />
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr className="hover:bg-neutral-base transition-colors">
-                                    <td className="px-6 py-5">
-                                        <div className="w-8 h-8 rounded-full bg-[#C0C0C0]/20 flex items-center justify-center font-bold text-secondary">2</div>
-                                    </td>
-                                    <td className="px-6 py-5 font-headline-sm text-headline-sm text-brand-navy">AI Mavericks</td>
-                                    <td className="px-6 py-5 font-body-md text-body-md font-bold text-primary-container">11,820 pts</td>
-                                    <td className="px-6 py-5">
-                                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[12px] font-bold">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2"></span> ACTIVE
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-5 text-right">
-                                        <button className="text-on-surface-variant hover:text-primary-container p-1 rounded hover:bg-neutral-divider transition-colors">
-                                            <Eye size={18} />
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr className="hover:bg-neutral-base transition-colors">
-                                    <td className="px-6 py-5">
-                                        <div className="w-8 h-8 rounded-full bg-[#CD7F32]/20 flex items-center justify-center font-bold text-[#8b4513]">3</div>
-                                    </td>
-                                    <td className="px-6 py-5 font-headline-sm text-headline-sm text-brand-navy">Cyber Guardians</td>
-                                    <td className="px-6 py-5 font-body-md text-body-md font-bold text-primary-container">11,400 pts</td>
-                                    <td className="px-6 py-5">
-                                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[12px] font-bold">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2"></span> ACTIVE
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-5 text-right">
-                                        <button className="text-on-surface-variant hover:text-primary-container p-1 rounded hover:bg-neutral-divider transition-colors">
-                                            <Eye size={18} />
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            {/* FAQ & Support Contact */}
-            <section className="py-12 max-w-[1440px] mx-auto px-margin-desktop">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div className="space-y-6">
-                        <h2 className="font-headline-lg text-headline-lg text-on-surface mb-2">Frequently Asked Questions</h2>
-                        <div className="space-y-4">
-                            <details className="group bg-white border border-outline-variant rounded-xl p-5 cursor-pointer transition-all shadow-sm">
-                                <summary className="list-none flex justify-between items-center font-headline-sm text-headline-sm text-brand-navy">
-                                    Who can participate in SEAL Hackathon?
-                                    <ChevronDown size={20} className="group-open:rotate-180 transition-transform text-brand-orange" />
-                                </summary>
-                                <p className="font-body-sm text-body-sm text-on-surface-variant mt-4 leading-relaxed">
-                                    All currently enrolled students at FPT University across all campuses are eligible to register as individuals or teams of 3-5 members.
-                                </p>
-                            </details>
-                            <details className="group bg-white border border-outline-variant rounded-xl p-5 cursor-pointer transition-all shadow-sm">
-                                <summary className="list-none flex justify-between items-center font-headline-sm text-headline-sm text-brand-navy">
-                                    What technologies can we use?
-                                    <ChevronDown size={20} className="group-open:rotate-180 transition-transform text-brand-orange" />
-                                </summary>
-                                <p className="font-body-sm text-body-sm text-on-surface-variant mt-4 leading-relaxed">
-                                    Participants are encouraged to use any open-source or licensed tools. We have special tracks for AI, Blockchain, and IoT using FPT's internal platform APIs.
-                                </p>
-                            </details>
-                            <details className="group bg-white border border-outline-variant rounded-xl p-5 cursor-pointer transition-all shadow-sm">
-                                <summary className="list-none flex justify-between items-center font-headline-sm text-headline-sm text-brand-navy">
-                                    How are the winners selected?
-                                    <ChevronDown size={20} className="group-open:rotate-180 transition-transform text-brand-orange" />
-                                </summary>
-                                <p className="font-body-sm text-body-sm text-on-surface-variant mt-4 leading-relaxed">
-                                    Judging is based on Impact (40%), Technical Execution (30%), Innovation (20%), and Presentation (10%).
-                                </p>
-                            </details>
-                        </div>
-                    </div>
-                    <div className="bg-primary-container/5 rounded-2xl p-8 md:p-12 border border-primary-container/20 shadow-sm flex flex-col justify-between">
-                        <div>
-                            <h3 className="font-headline-lg text-headline-lg text-brand-navy mb-2">Need Help?</h3>
-                            <p className="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
-                                Our support team is available 24/7 during the event to assist with registration, technical issues, or general inquiries.
+            {/* Why Join Us Section */}
+            <section className="py-16 max-w-[1440px] mx-auto px-margin-desktop">
+                <div className="bg-gradient-to-br from-primary-container/10 via-surface to-brand-orange/5 rounded-[2.5rem] p-10 md:p-16 border border-outline-variant/50 shadow-sm relative overflow-hidden">
+                    <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-96 h-96 bg-brand-orange/5 rounded-full blur-3xl"></div>
+                    
+                    <div className="relative z-10">
+                        <div className="text-center max-w-3xl mx-auto mb-16">
+                            <span className="inline-block py-1.5 px-4 rounded-full bg-white border border-outline-variant text-brand-orange font-label-md text-label-md mb-6 shadow-sm">
+                                🚀 Ignite Your Potential
+                            </span>
+                            <h2 className="font-headline-lg text-4xl md:text-5xl font-bold text-brand-navy mb-6 leading-tight">
+                                Don't just write code.<br/>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-brand-orange">
+                                    Build solutions that matter.
+                                </span>
+                            </h2>
+                            <p className="font-body-lg text-lg text-on-surface-variant leading-relaxed">
+                                SEAL Hackathon is your ultimate platform to innovate, collaborate, and accelerate your career. Whether you are a visionary designer, a hardcore developer, or a strategic thinker, this is where your ideas become reality.
                             </p>
                         </div>
-                        <form className="space-y-4" onSubmit={handleSupportSubmit}>
-                            {supportSuccess && (
-                                <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm font-medium flex items-center gap-2">
-                                    <span>✅</span> Thank you! Your message has been sent. We will get back to you soon.
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                            <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-outline-variant/50 hover:-translate-y-2 transition-all duration-300 hover:shadow-floating group">
+                                <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                                    <Rocket size={28} />
                                 </div>
-                            )}
-                            {supportError && (
-                                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm font-medium">
-                                    {supportError}
+                                <h3 className="font-headline-sm text-xl font-bold text-brand-navy mb-3">Accelerate Career</h3>
+                                <p className="font-body-sm text-on-surface-variant leading-relaxed">Get noticed by top tech companies and recruiters looking for exceptional talent.</p>
+                            </div>
+                            
+                            <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-outline-variant/50 hover:-translate-y-2 transition-all duration-300 hover:shadow-floating group">
+                                <div className="w-14 h-14 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300 shadow-sm">
+                                    <Lightbulb size={28} />
                                 </div>
-                            )}
+                                <h3 className="font-headline-sm text-xl font-bold text-brand-navy mb-3">Build & Innovate</h3>
+                                <p className="font-body-sm text-on-surface-variant leading-relaxed">Transform your boldest ideas into working prototypes with cutting-edge tech.</p>
+                            </div>
+                            
+                            <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-outline-variant/50 hover:-translate-y-2 transition-all duration-300 hover:shadow-floating group">
+                                <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300 shadow-sm">
+                                    <Users size={28} />
+                                </div>
+                                <h3 className="font-headline-sm text-xl font-bold text-brand-navy mb-3">Network with Best</h3>
+                                <p className="font-body-sm text-on-surface-variant leading-relaxed">Collaborate with passionate peers and learn directly from industry-leading mentors.</p>
+                            </div>
+                            
+                            <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-outline-variant/50 hover:-translate-y-2 transition-all duration-300 hover:shadow-floating group">
+                                <div className="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                                    <Award size={28} />
+                                </div>
+                                <h3 className="font-headline-sm text-xl font-bold text-brand-navy mb-3">Win Amazing Prizes</h3>
+                                <p className="font-body-sm text-on-surface-variant leading-relaxed">Compete for cash prizes, exclusive scholarships, and premium hardware rewards.</p>
+                            </div>
+                        </div>
+                        
+                        <div className="text-center">
+                            <button 
+                                onClick={() => navigate('/events')}
+                                className="px-8 py-4 bg-brand-navy text-white rounded-xl font-label-lg text-lg hover:bg-primary transition-all shadow-lg hover:shadow-primary/30 flex items-center gap-3 mx-auto cursor-pointer group"
+                            >
+                                Secure Your Spot Now 
+                                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </button>
+                            <p className="text-sm text-on-surface-variant mt-4">Spots are limited. Registration closes soon.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Support Contact Section */}
+            <section className="py-12 max-w-[1440px] mx-auto px-margin-desktop">
+                <div className="max-w-2xl mx-auto bg-white rounded-2xl p-8 border border-outline-variant shadow-sm relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-brand-orange"></div>
+                    <div className="text-center mb-8">
+                        <div className="w-12 h-12 bg-blue-50 text-primary mx-auto rounded-full flex items-center justify-center mb-4">
+                            <Mail size={24} />
+                        </div>
+                        <h2 className="font-headline-md text-2xl font-bold text-brand-navy mb-2">Still Have Questions?</h2>
+                        <p className="text-on-surface-variant text-sm">
+                            Our support team is available 24/7 to assist with registration, technical issues, or general inquiries.
+                        </p>
+                    </div>
+                    <form className="space-y-4" onSubmit={handleSupportSubmit}>
+                        {supportSuccess && (
+                            <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm font-medium flex items-center gap-2">
+                                <span>✅</span> Thank you! Your message has been sent. We will get back to you soon.
+                            </div>
+                        )}
+                        {supportError && (
+                            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm font-medium">
+                                {supportError}
+                            </div>
+                        )}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block font-label-lg text-label-lg text-brand-navy mb-1.5">Full Name</label>
+                                <label className="block font-label-md text-sm font-medium text-brand-navy mb-1.5">Full Name</label>
                                 <input 
-                                    className="w-full bg-white border border-outline-variant rounded-lg p-3 focus:ring-4 focus:ring-primary-container/10 focus:border-primary-container outline-none transition-all text-body-sm" 
+                                    className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm" 
                                     placeholder="Enter your name" 
                                     type="text" 
                                     required
@@ -377,9 +268,9 @@ const LandingPage: React.FC = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block font-label-lg text-label-lg text-brand-navy mb-1.5">Email Address</label>
+                                <label className="block font-label-md text-sm font-medium text-brand-navy mb-1.5">Email Address</label>
                                 <input 
-                                    className="w-full bg-white border border-outline-variant rounded-lg p-3 focus:ring-4 focus:ring-primary-container/10 focus:border-primary-container outline-none transition-all text-body-sm" 
+                                    className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm" 
                                     placeholder="student@fpt.edu.vn" 
                                     type="email" 
                                     required
@@ -388,31 +279,27 @@ const LandingPage: React.FC = () => {
                                     disabled={supportLoading}
                                 />
                             </div>
-                            <div>
-                                <label className="block font-label-lg text-label-lg text-brand-navy mb-1.5">Message</label>
-                                <textarea 
-                                    className="w-full bg-white border border-outline-variant rounded-lg p-3 focus:ring-4 focus:ring-primary-container/10 focus:border-primary-container outline-none transition-all text-body-sm" 
-                                    placeholder="How can we help you?" 
-                                    rows={4}
-                                    required
-                                    value={supportMessage}
-                                    onChange={(e) => setSupportMessage(e.target.value)}
-                                    disabled={supportLoading}
-                                ></textarea>
-                            </div>
-                            <button 
-                                type="submit" 
+                        </div>
+                        <div>
+                            <label className="block font-label-md text-sm font-medium text-brand-navy mb-1.5">Message</label>
+                            <textarea 
+                                className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm resize-none" 
+                                placeholder="How can we help you?" 
+                                rows={3}
+                                required
+                                value={supportMessage}
+                                onChange={(e) => setSupportMessage(e.target.value)}
                                 disabled={supportLoading}
-                                className={`w-full bg-primary-container text-on-primary py-3.5 rounded-lg font-headline-sm text-headline-sm hover:opacity-90 transition-all shadow-md shadow-primary/20 font-semibold flex items-center justify-center gap-2 ${supportLoading ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'}`}
-                            >
-                                {supportLoading ? 'Sending...' : (
-                                    <>
-                                        Send Message <span className="text-xl leading-none">✈️</span>
-                                    </>
-                                )}
-                            </button>
-                        </form>
-                    </div>
+                            ></textarea>
+                        </div>
+                        <button 
+                            type="submit" 
+                            disabled={supportLoading}
+                            className={`w-full bg-primary-container text-on-primary py-3 rounded-lg font-label-lg font-medium hover:opacity-90 transition-all shadow-sm flex items-center justify-center gap-2 ${supportLoading ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'}`}
+                        >
+                            {supportLoading ? 'Sending...' : 'Send Message'}
+                        </button>
+                    </form>
                 </div>
             </section>
 

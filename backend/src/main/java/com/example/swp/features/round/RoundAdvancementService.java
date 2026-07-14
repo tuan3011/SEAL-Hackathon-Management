@@ -122,6 +122,12 @@ public class RoundAdvancementService {
                             .build();
                     advancements.add(adv);
                     slotsFilledPerTrack.put(trackId, currentSlots + 1);
+                } else {
+                    team.setStatus(TeamStatus.DISQUALIFIED);
+                    team.setDisqualificationReason("Eliminated after " + fromRound.getName());
+                    team.setDisqualifiedAt(LocalDateTime.now());
+                    team.setDisqualifiedBy(currentUser);
+                    teamRepository.save(team);
                 }
             }
         }

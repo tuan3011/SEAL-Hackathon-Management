@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 import toast from 'react-hot-toast';
-import { User, Link, BookOpen, School, Hash, Loader2, Save } from 'lucide-react';
+import { User, Link, BookOpen, School, Hash, Loader2, Save, Phone } from 'lucide-react';
 import Skeleton from '../components/Skeleton';
 
 interface ProfileData {
     username: string;
     email: string;
     fullName: string;
+    phone: string;
     fptStudentId: string;
     schoolName: string;
     githubUrl: string;
@@ -17,6 +18,7 @@ interface ProfileData {
 
 interface FormState {
     fullName: string;
+    phone: string;
     fptStudentId: string;
     schoolName: string;
     githubUrl: string;
@@ -27,6 +29,7 @@ const ProfilePage: React.FC = () => {
     const [profile, setProfile] = useState<ProfileData | null>(null);
     const [form, setForm] = useState<FormState>({
         fullName: '',
+        phone: '',
         fptStudentId: '',
         schoolName: '',
         githubUrl: '',
@@ -43,6 +46,7 @@ const ProfilePage: React.FC = () => {
                 setProfile(data);
                 setForm({
                     fullName: data.fullName ?? '',
+                    phone: data.phone ?? '',
                     fptStudentId: data.fptStudentId ?? '',
                     schoolName: data.schoolName ?? '',
                     githubUrl: data.githubUrl ?? '',
@@ -63,6 +67,7 @@ const ProfilePage: React.FC = () => {
         try {
             const payload = {
                 fullName: form.fullName.trim() || undefined,
+                phone: form.phone.trim() || undefined,
                 fptStudentId: form.fptStudentId.trim() || undefined,
                 schoolName: form.schoolName.trim() || undefined,
                 githubUrl: form.githubUrl.trim() || undefined,
@@ -77,6 +82,7 @@ const ProfilePage: React.FC = () => {
             setForm(f => ({
                 ...f,
                 fullName: form.fullName,
+                phone: form.phone,
                 fptStudentId: form.fptStudentId,
                 schoolName: form.schoolName,
                 githubUrl: form.githubUrl,
@@ -125,18 +131,34 @@ const ProfilePage: React.FC = () => {
                 <h2 className="text-lg font-bold text-on-surface border-b border-slate-100 pb-3 mb-5">Edit Profile Information</h2>
                 
                 <form onSubmit={handleSubmit} className="space-y-5">
-                    {/* Full Name */}
-                    <div>
-                        <label className="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1.5">
-                            <span className="flex items-center gap-1.5"><User size={14} /> Full Name</span>
-                        </label>
-                        <input
-                            type="text"
-                            value={form.fullName}
-                            onChange={e => setForm(f => ({ ...f, fullName: e.target.value }))}
-                            placeholder="Your full name"
-                            className="w-full px-3 py-2 bg-white border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all placeholder-slate-400"
-                        />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Full Name */}
+                        <div>
+                            <label className="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1.5">
+                                <span className="flex items-center gap-1.5"><User size={14} /> Full Name</span>
+                            </label>
+                            <input
+                                type="text"
+                                value={form.fullName}
+                                onChange={e => setForm(f => ({ ...f, fullName: e.target.value }))}
+                                placeholder="Your full name"
+                                className="w-full px-3 py-2 bg-white border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all placeholder-slate-400"
+                            />
+                        </div>
+
+                        {/* Phone Number */}
+                        <div>
+                            <label className="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1.5">
+                                <span className="flex items-center gap-1.5"><Phone size={14} /> Phone Number</span>
+                            </label>
+                            <input
+                                type="text"
+                                value={form.phone}
+                                onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
+                                placeholder="e.g. 0987654321"
+                                className="w-full px-3 py-2 bg-white border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all placeholder-slate-400"
+                            />
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -241,7 +241,7 @@ const PrizesTab: React.FC = () => {
                     )}
                     <button
                         onClick={() => {
-                            setForm({ name: '', description: '', rank: 1, trackId: '' });
+                            setForm({ name: '', description: '', rank: 1, trackId: '', cash: '', cup: '', certificate: '', currency: 'VND' });
                             setIsEditing(null);
                             setShowForm(s => !s);
                         }}

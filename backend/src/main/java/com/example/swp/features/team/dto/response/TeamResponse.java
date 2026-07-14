@@ -20,6 +20,10 @@ public class TeamResponse {
     private java.util.List<TeamMemberInfo> members;
     private java.math.BigDecimal finalScore;
 
+    private Long currentRoundId;
+    private String currentRoundName;
+    private Integer currentRoundOrder;
+
     @Data
     @lombok.NoArgsConstructor
     @lombok.AllArgsConstructor
@@ -58,6 +62,9 @@ public class TeamResponse {
         private String status;
         private java.util.List<TeamMemberInfo> members;
         private java.math.BigDecimal finalScore;
+        private Long currentRoundId;
+        private String currentRoundName;
+        private Integer currentRoundOrder;
 
         public TeamResponseBuilder id(Long id) { this.id = id; return this; }
         public TeamResponseBuilder name(String name) { this.name = name; return this; }
@@ -69,12 +76,18 @@ public class TeamResponse {
         public TeamResponseBuilder status(String status) { this.status = status; return this; }
         public TeamResponseBuilder members(java.util.List<TeamMemberInfo> members) { this.members = members; return this; }
         public TeamResponseBuilder finalScore(java.math.BigDecimal finalScore) { this.finalScore = finalScore; return this; }
+        public TeamResponseBuilder currentRoundId(Long currentRoundId) { this.currentRoundId = currentRoundId; return this; }
+        public TeamResponseBuilder currentRoundName(String currentRoundName) { this.currentRoundName = currentRoundName; return this; }
+        public TeamResponseBuilder currentRoundOrder(Integer currentRoundOrder) { this.currentRoundOrder = currentRoundOrder; return this; }
         public TeamResponse build() {
             TeamResponse r = new TeamResponse();
             r.id = this.id; r.name = this.name; r.projectName = this.projectName;
             r.projectDescription = this.projectDescription; r.trackId = this.trackId;
             r.eventId = this.eventId; r.trackName = this.trackName; r.status = this.status; 
             r.members = this.members; r.finalScore = this.finalScore;
+            r.currentRoundId = this.currentRoundId;
+            r.currentRoundName = this.currentRoundName;
+            r.currentRoundOrder = this.currentRoundOrder;
             return r;
         }
     }

@@ -41,6 +41,8 @@ public class TeamServiceImpl implements TeamService {
     private final com.example.swp.features.mentorship_request.MentorshipRequestRepository mentorshipRequestRepository;
     private final com.example.swp.features.team_invitation.TeamInvitationRepository teamInvitationRepository;
     private final com.example.swp.features.submission.SubmissionRepository submissionRepository;
+    private final com.example.swp.features.round.RoundRepository roundRepository;
+    private final com.example.swp.features.round.TeamRoundAdvancementRepository teamRoundAdvancementRepository;
 
     @Override
     @Transactional
@@ -206,6 +208,10 @@ public class TeamServiceImpl implements TeamService {
             throw new IllegalStateException("Cannot edit team details when the event is completed or cancelled.");
         }
 
+        if (team.getStatus() == com.example.swp.features.team.TeamStatus.DISQUALIFIED) {
+            throw new IllegalStateException("Your team has been disqualified and cannot edit team details.");
+        }
+
         boolean isCurrentUserAdmin = currentUser.getRole() == com.example.swp.features.user.Role.ADMIN || currentUser.getRole() == com.example.swp.features.user.Role.ORGANIZER;
 
         if (team.getEvent().getEndTime() != null && LocalDateTime.now().isAfter(team.getEvent().getEndTime()) && !isCurrentUserAdmin) {
@@ -339,6 +345,23 @@ public class TeamServiceImpl implements TeamService {
     }
 
     private TeamResponse mapToResponse(Team team) {
+        // Find current round
+        com.example.swp.features.round.Round currentRound = null;
+        if (team.getEvent() != null) {
+            List<com.example.swp.features.round.Round> rounds = roundRepository.findByHackathonEventIdOrderByRoundOrderDesc(team.getEvent().getId());
+            if (!rounds.isEmpty()) {
+                // Default to the first round if no advancement exists
+                com.example.swp.features.round.Round firstRound = rounds.get(rounds.size() - 1);
+                currentRound = firstRound;
+                for (com.example.swp.features.round.Round r : rounds) {
+                    if (teamRoundAdvancementRepository.existsByTeamIdAndToRoundId(team.getId(), r.getId())) {
+                        currentRound = r;
+                        break;
+                    }
+                }
+            }
+        }
+
         // This mapping can be improved with a dedicated mapper class
         return TeamResponse.builder()
                 .id(team.getId())
@@ -357,6 +380,9 @@ public class TeamServiceImpl implements TeamService {
                         .build()
                 ).collect(Collectors.toList()) : null)
                 .finalScore(team.getFinalScore())
+                .currentRoundId(currentRound != null ? currentRound.getId() : null)
+                .currentRoundName(currentRound != null ? currentRound.getName() : null)
+                .currentRoundOrder(currentRound != null ? currentRound.getRoundOrder() : null)
                 .build();
     }
 }

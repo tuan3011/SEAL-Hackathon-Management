@@ -94,7 +94,14 @@ const MentorDashboardPage: React.FC = () => {
                         <tbody>
                             {myRequests.map(req => (
                                 <tr key={req.id} className="border-b">
-                                    <td className="py-3 px-4">{req.team?.name || (req as any).teamName || 'Unknown'}</td>
+                                    <td className="py-3 px-4">
+                                        {req.team?.name || (req as any).teamName || 'Unknown'}
+                                        {req.trackName && (
+                                            <span className="ml-2 px-2 py-0.5 text-[10px] font-bold uppercase bg-blue-50 text-blue-600 border border-blue-200 rounded-full">
+                                                {req.trackName}
+                                            </span>
+                                        )}
+                                    </td>
                                     <td className="py-3 px-4">{req.title}</td>
                                     <td className="py-3 px-4">
                                         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
@@ -132,7 +139,14 @@ const MentorDashboardPage: React.FC = () => {
                     <div className="space-y-4">
                         <div>
                             <p className="text-sm font-semibold text-gray-500 uppercase">Team Name</p>
-                            <p className="text-gray-900 font-medium">{selectedRequest.team?.name || (selectedRequest as any).teamName}</p>
+                            <p className="text-gray-900 font-medium">
+                                {selectedRequest.team?.name || (selectedRequest as any).teamName}
+                                {selectedRequest.trackName && (
+                                    <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-blue-600 px-2 py-0.5 bg-blue-50 border border-blue-100 rounded-full">
+                                        {selectedRequest.trackName}
+                                    </span>
+                                )}
+                            </p>
                         </div>
                         <div>
                             <p className="text-sm font-semibold text-gray-500 uppercase">Request Title</p>

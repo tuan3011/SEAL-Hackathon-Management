@@ -2,7 +2,12 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { MentorshipRequestService, MentorshipRequest } from '../../services/MentorshipRequestService';
 import Modal from '../../components/Modal';
 import RequestMentorshipModal from '../../components/mentorship/RequestMentorshipModal';
-import { HelpCircle, Plus, Info, Trash2 } from 'lucide-react';
+import { HelpCircle, Plus, Info, Trash2, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { HackathonEventService } from '../../services/HackathonEventService';
+import api from '../../services/api';
+import { Team } from '../../services/TeamService';
+import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const MyMentorshipRequestsPage: React.FC = () => {
@@ -12,14 +17,33 @@ const MyMentorshipRequestsPage: React.FC = () => {
     const [selectedRequest, setSelectedRequest] = useState<MentorshipRequest | null>(null);
     const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
     const [isCancelling, setIsCancelling] = useState(false);
+    const [myTeams, setMyTeams] = useState<Team[]>([]);
 
     const fetchMyRequests = async () => {
         try {
             setLoading(true);
             const response = await MentorshipRequestService.getMyRequests();
             setRequests(response);
+
+            const events = await HackathonEventService.getHackathonEvents(0, 50);
+            const teams = [];
+            if (Array.isArray(events)) {
+                for (const ev of events) {
+                    try {
+                        const res = await api.get(`/teams/my-team/event/${ev.id}`);
+                        if (res.data?.data?.id) {
+                            teams.push({ ...res.data.data, eventName: ev.name });
+                        }
+                    } catch { /* ignore fallback */ }
+                }
+            }
+            setMyTeams(teams);
         } catch (err) {
-            setError('Failed to fetch your mentorship requests.');
+            if (axios.isAxiosError(err) && err.response?.status === 404 && err.response?.data?.error?.message?.includes('not in any team')) {
+                setError('not_in_team');
+            } else {
+                setError('Failed to fetch your mentorship requests.');
+            }
         } finally {
             setLoading(false);
         }
@@ -67,7 +91,26 @@ const MyMentorshipRequestsPage: React.FC = () => {
     };
 
     if (loading) return <div className="text-center p-8 text-gray-500">Loading your mentorship requests...</div>;
+    
+    if (error === 'not_in_team') {
+        return (
+            <div className="text-center py-12 bg-white rounded-xl border border-gray-200 shadow-sm max-w-2xl mx-auto mt-8">
+                <Users className="mx-auto h-16 w-16 text-slate-300 mb-4" />
+                <h3 className="text-lg font-bold text-gray-800 mb-2">You are not currently in a team</h3>
+                <p className="text-gray-500 mb-6">Create or join a team before using this feature.</p>
+                <Link 
+                    to="/my-team"
+                    className="inline-flex items-center justify-center px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+                >
+                    Go to My Team
+                </Link>
+            </div>
+        );
+    }
+    
     if (error) return <div className="text-center p-8 text-red-500">{error}</div>;
+
+    const hasFinalizedTeam = myTeams.some(t => t.status === 'FINALIZED');
 
     return (
         <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
@@ -77,13 +120,23 @@ const MyMentorshipRequestsPage: React.FC = () => {
                     <HelpCircle className="mr-3 text-blue-500" />
                     Mentorship Sessions
                 </h1>
-                <button 
-                    onClick={() => setIsRequestModalOpen(true)}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-                >
-                    <Plus size={20} />
-                    Request Mentorship
-                </button>
+                <div className="flex flex-col items-end gap-1">
+                    <button 
+                        onClick={() => setIsRequestModalOpen(true)}
+                        disabled={myTeams.length > 0 && !hasFinalizedTeam}
+                        className={`flex items-center gap-2 px-5 py-2.5 text-white font-semibold rounded-lg shadow-sm transition-colors ${
+                            myTeams.length > 0 && !hasFinalizedTeam
+                                ? 'bg-gray-400 cursor-not-allowed opacity-70'
+                                : 'bg-blue-600 hover:bg-blue-700'
+                        }`}
+                    >
+                        <Plus size={20} />
+                        Request Mentorship
+                    </button>
+                    {myTeams.length > 0 && !hasFinalizedTeam && (
+                        <p className="text-sm font-medium text-red-500 mt-1">Your team must be finalized before requesting mentorship.</p>
+                    )}
+                </div>
             </div>
 
             <div className="mb-8 p-4 bg-blue-50 border border-blue-100 rounded-lg flex items-start gap-3">
@@ -169,6 +222,7 @@ const MyMentorshipRequestsPage: React.FC = () => {
                     setIsRequestModalOpen(false);
                     fetchMyRequests(); // Refresh list after successful submit
                 }}
+                myTeams={myTeams}
             />
 
             {/* View Details Modal */}
@@ -179,9 +233,16 @@ const MyMentorshipRequestsPage: React.FC = () => {
             >
                 {selectedRequest && (
                     <div className="space-y-5 mt-2">
-                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                            <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Topic</p>
-                            <p className="text-gray-900 font-semibold text-lg">{selectedRequest.title}</p>
+                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 flex justify-between items-center">
+                            <div>
+                                <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Topic</p>
+                                <p className="text-gray-900 font-semibold text-lg">{selectedRequest.title}</p>
+                            </div>
+                            {selectedRequest.trackName && (
+                                <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 px-3 py-1 bg-blue-50 border border-blue-100 rounded-full">
+                                    {selectedRequest.trackName}
+                                </span>
+                            )}
                         </div>
                         
                         <div>

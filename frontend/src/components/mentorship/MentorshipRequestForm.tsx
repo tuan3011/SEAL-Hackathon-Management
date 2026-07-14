@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { MentorshipRequestService } from '../../services/MentorshipRequestService';
-import { HackathonEventService } from '../../services/HackathonEventService';
 import api from '../../services/api';
+import { HackathonEventService } from '../../services/HackathonEventService';
+import { Team } from '../../services/TeamService';
 import toast from 'react-hot-toast';
 
 interface MentorshipRequestFormProps {
     onSuccess: () => void;
     onCancel: () => void;
+    myTeamsProp?: Team[];
 }
 
-const MentorshipRequestForm: React.FC<MentorshipRequestFormProps> = ({ onSuccess, onCancel }) => {
+const MentorshipRequestForm: React.FC<MentorshipRequestFormProps> = ({ onSuccess, onCancel, myTeamsProp }) => {
     const [myTeams, setMyTeams] = useState<any[]>([]);
     const [teamId, setTeamId] = useState<number | ''>('');
     const [topic, setTopic] = useState('');
@@ -21,25 +23,29 @@ const MentorshipRequestForm: React.FC<MentorshipRequestFormProps> = ({ onSuccess
     useEffect(() => {
         const initData = async () => {
             try {
-                // Try to find the user's teams from active events
-                const events = await HackathonEventService.getHackathonEvents(0, 50);
-                const teams = [];
-                if (Array.isArray(events)) {
-                    for (const ev of events) {
-                        try {
-                            const res = await api.get(`/teams/my-team/event/${ev.id}`);
-                            if (res.data?.data?.id) {
-                                // Add event info to team for display
-                                teams.push({ ...res.data.data, eventName: ev.name });
-                            }
-                        } catch (e) {
-                            // Ignore errors (user not in team for this event)
+                let teams = [];
+                if (myTeamsProp && myTeamsProp.length > 0) {
+                    teams = myTeamsProp;
+                } else {
+                    const events = await HackathonEventService.getHackathonEvents(0, 50);
+                    if (Array.isArray(events)) {
+                        for (const ev of events) {
+                            try {
+                                const res = await api.get(`/teams/my-team/event/${ev.id}`);
+                                if (res.data?.data?.id) {
+                                    teams.push({ ...res.data.data, eventName: ev.name });
+                                }
+                            } catch { /* ignore fallback */ }
                         }
                     }
                 }
-                setMyTeams(teams);
-                if (teams.length > 0) {
-                    setTeamId(teams[0].id);
+                
+                // Only allow finalized teams
+                const finalizedTeams = teams.filter((t: Team) => t.status === 'FINALIZED');
+                setMyTeams(finalizedTeams);
+                
+                if (finalizedTeams.length > 0) {
+                    setTeamId(finalizedTeams[0].id);
                 }
             } catch (error) {
                 console.error('Failed to init teams:', error);
@@ -49,7 +55,7 @@ const MentorshipRequestForm: React.FC<MentorshipRequestFormProps> = ({ onSuccess
             }
         };
         initData();
-    }, []);
+    }, [myTeamsProp]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -107,7 +113,7 @@ const MentorshipRequestForm: React.FC<MentorshipRequestFormProps> = ({ onSuccess
                     </select>
                 ) : (
                     <div className="mt-2 text-sm text-red-500 font-semibold p-3 bg-red-50 border border-red-100 rounded-lg">
-                        You are not in any active team. You must join a team to request mentorship.
+                        You do not have any finalized teams to request mentorship for.
                     </div>
                 )}
             </div>

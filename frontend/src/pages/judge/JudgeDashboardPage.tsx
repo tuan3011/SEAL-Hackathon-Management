@@ -11,6 +11,7 @@ const JudgeDashboardPage: React.FC = () => {
     const [error, setError] = useState('');
     const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
     const [submissions, setSubmissions] = useState<any[]>([]);
+    const [myScores, setMyScores] = useState<any[]>([]);
     const [currentRoundData, setCurrentRoundData] = useState<any>(null);
     const [loadingSubmissions, setLoadingSubmissions] = useState(false);
 
@@ -37,15 +38,17 @@ const JudgeDashboardPage: React.FC = () => {
         setExpandedRowId(rowId);
         setLoadingSubmissions(true);
         try {
-            const [response, roundRes] = await Promise.all([
+            const [response, roundRes, scoresRes] = await Promise.all([
                 api.get(`/submissions/round/${roundId}`),
-                api.get(`/rounds/${roundId}`)
+                api.get(`/rounds/${roundId}`),
+                api.get(`/scores/my-scores/round/${roundId}`)
             ]);
             let allSubs = response.data.data || [];
             if (trackId) {
                 allSubs = allSubs.filter((s: any) => s.trackId === trackId);
             }
             setSubmissions(allSubs);
+            setMyScores(scoresRes.data.data || []);
             setCurrentRoundData(roundRes.data.data);
         } catch (err) {
             console.error("Failed to fetch submissions for round", err);
@@ -96,10 +99,9 @@ const JudgeDashboardPage: React.FC = () => {
                                         <td className="py-3 px-4">
                                             <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
                                                 ass.status === 'COMPLETED' ? 'bg-green-100 text-green-800 border border-green-200' : 
-                                                ass.status === 'DRAFT' ? 'bg-purple-100 text-purple-800 border border-purple-200' :
                                                 'bg-yellow-100 text-yellow-800 border border-yellow-200'
                                             }`}>
-                                                {ass.status || 'ASSIGNED'}
+                                                {ass.status === 'COMPLETED' ? 'COMPLETED' : 'INCOMPLETE'}
                                             </span>
                                         </td>
                                         <td className="py-3 px-4">
@@ -149,22 +151,41 @@ const JudgeDashboardPage: React.FC = () => {
                                                                 const gradEnd = currentRoundData?.gradingEndTime ? new Date(currentRoundData.gradingEndTime) : null;
                                                                 const canScore = (!roundEnd || now >= roundEnd) && (!gradEnd || now <= gradEnd) && !currentRoundData?.gradingEnded;
 
+                                                                const subScores = myScores.filter(s => s.submissionId === sub.id);
+                                                                let subStatus = 'Not Graded';
+                                                                let subStatusColor = 'bg-gray-100 text-gray-600 border-gray-200';
+                                                                if (subScores.length > 0) {
+                                                                    const isFinalized = subScores.every(s => s.isFinalized === true || s.finalized === true);
+                                                                    if (isFinalized) {
+                                                                        subStatus = 'Graded';
+                                                                        subStatusColor = 'bg-green-100 text-green-700 border-green-200';
+                                                                    } else {
+                                                                        subStatus = 'Draft';
+                                                                        subStatusColor = 'bg-purple-100 text-purple-700 border-purple-200';
+                                                                    }
+                                                                }
+
                                                                 return (
                                                                     <li key={sub.id} className="flex items-center justify-between bg-white p-3 rounded border border-gray-200">
-                                                                        <span className="font-medium text-gray-800">{sub.teamName}</span>
+                                                                        <div className="flex items-center gap-3">
+                                                                            <span className="font-medium text-gray-800">{sub.teamName}</span>
+                                                                            <span className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded border ${subStatusColor}`}>
+                                                                                {subStatus}
+                                                                            </span>
+                                                                        </div>
                                                                         {canScore ? (
                                                                             <Link
                                                                                 to={`/judge/score/${sub.id}`}
-                                                                                className="px-3 py-1 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700 transition-colors"
+                                                                                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${subStatus === 'Graded' ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
                                                                             >
-                                                                                Score Now
+                                                                                {subStatus === 'Graded' ? 'View Score' : 'Score Now'}
                                                                             </Link>
                                                                         ) : (
                                                                             <span
                                                                                 className="px-3 py-1 bg-gray-300 text-gray-500 rounded text-sm font-medium cursor-not-allowed"
                                                                                 title="Grading is not currently available"
                                                                             >
-                                                                                Score Now
+                                                                                {subStatus === 'Graded' ? 'View Score' : 'Score Now'}
                                                                             </span>
                                                                         )}
                                                                     </li>

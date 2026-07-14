@@ -57,8 +57,8 @@ public class PrizeServiceImpl implements PrizeService {
                 .track(track)
                 .rank(request.getRank())
                 .cash(request.getCash())
-                .hasCup(request.getHasCup())
-                .hasCertificate(request.getHasCertificate())
+                .hasCup(request.getCup() != null && !request.getCup().trim().isEmpty())
+                .hasCertificate(request.getCertificate() != null && !request.getCertificate().trim().isEmpty())
                 .cup(request.getCup())
                 .certificate(request.getCertificate())
                 .currency(request.getCurrency() != null ? request.getCurrency() : "VND")
@@ -251,8 +251,8 @@ public class PrizeServiceImpl implements PrizeService {
         prize.setHackathonEvent(event);
         prize.setTrack(track);
         prize.setCash(request.getCash());
-        prize.setHasCup(request.getHasCup());
-        prize.setHasCertificate(request.getHasCertificate());
+        prize.setHasCup(request.getCup() != null && !request.getCup().trim().isEmpty());
+        prize.setHasCertificate(request.getCertificate() != null && !request.getCertificate().trim().isEmpty());
         prize.setCup(request.getCup());
         prize.setCertificate(request.getCertificate());
         prize.setCurrency(request.getCurrency() != null ? request.getCurrency() : "VND");

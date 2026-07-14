@@ -13,6 +13,8 @@ export interface MentorshipRequest {
     answer?: string;
     rejectReason?: string;
     mentorName?: string;
+    trackName?: string;
+    teamName?: string;
     createdAt: string;
 }
 

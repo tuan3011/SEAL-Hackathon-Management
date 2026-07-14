@@ -33,6 +33,24 @@ const EventDetailPage: React.FC = () => {
     const [criteria, setCriteria] = useState<any[]>([]);
     const [prizes, setPrizes] = useState<any[]>([]);
 
+    const getRoundStatusBadge = (r: any) => {
+        const now = new Date();
+        const start = new Date(r.startTime);
+        const end = new Date(r.endTime);
+        const gradingEnd = r.gradingEndTime ? new Date(r.gradingEndTime) : null;
+
+        if (r.gradingEnded || (gradingEnd && now >= gradingEnd) || now > end) {
+            if (r.gradingEnded || (gradingEnd && now >= gradingEnd)) {
+                return <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 border border-gray-200 rounded text-[9px] font-bold">Ended</span>;
+            }
+            return <span className="px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded text-[9px] font-bold">Grading</span>;
+        }
+        if (now < start) {
+            return <span className="px-1.5 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 rounded text-[9px] font-bold">Upcoming</span>;
+        }
+        return <span className="px-1.5 py-0.5 bg-green-50 text-green-700 border border-green-200 rounded text-[9px] font-bold">In Progress</span>;
+    };
+
     useEffect(() => {
         const fetchEvent = async () => {
             if (!slug) return;
@@ -118,6 +136,24 @@ const EventDetailPage: React.FC = () => {
     };
 
     const regStatus = getRegistrationStatus();
+
+    const getEventStatusBadge = () => {
+        if (!event) return null;
+        const now = new Date();
+        const start = new Date(event.startTime);
+        const end = new Date(event.endTime);
+
+        if (event.status === 'COMPLETED' || now > end) {
+            return <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 border border-gray-200 rounded text-[9px] font-bold">Ended</span>;
+        }
+        if (event.status === 'CANCELLED') {
+            return <span className="px-1.5 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 rounded text-[9px] font-bold">Cancelled</span>;
+        }
+        if (event.status === 'IN_PROGRESS' || (now >= start && now <= end)) {
+            return <span className="px-1.5 py-0.5 bg-green-50 text-green-700 border border-green-200 rounded text-[9px] font-bold">Ongoing</span>;
+        }
+        return <span className="px-1.5 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 rounded text-[9px] font-bold">Upcoming</span>;
+    };
 
     if (loading) {
         return (
@@ -215,9 +251,7 @@ const EventDetailPage: React.FC = () => {
                                                 </div>
                                                 <h3 className="font-bold text-sm text-gray-900 flex items-center gap-2">
                                                     {r.name}
-                                                    {r.gradingEnded && (
-                                                        <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 border border-gray-200 rounded text-[9px] font-bold">Ended Early</span>
-                                                    )}
+                                                    {getRoundStatusBadge(r)}
                                                 </h3>
                                                 {tracks.length > 0 && (
                                                     <div className="flex flex-wrap items-center gap-1 mt-1">
@@ -364,7 +398,10 @@ const EventDetailPage: React.FC = () => {
                                     <div className="pt-4 flex items-start gap-3">
                                         <Calendar size={16} className="text-on-surface-variant shrink-0 mt-0.5" />
                                         <div>
-                                            <p className="text-xs font-semibold text-on-surface">Hackathon Dates</p>
+                                            <div className="flex items-center gap-2">
+                                                <p className="text-xs font-semibold text-on-surface">Hackathon Dates</p>
+                                                {getEventStatusBadge()}
+                                            </div>
                                             <p className="text-xs text-on-surface-variant mt-0.5">
                                                 {new Date(event.startTime).toLocaleString()} - {new Date(event.endTime).toLocaleString()}
                                             </p>
@@ -401,7 +438,7 @@ const EventDetailPage: React.FC = () => {
                     </div>
                     
                     {rounds.length > 0 && rounds.some(r => r.gradingEnded) && (
-                        <LeaderboardSection rounds={rounds} tracks={tracks} />
+                        <LeaderboardSection rounds={rounds} tracks={tracks} prizes={prizes} />
                     )}
                 </div>
             </div>

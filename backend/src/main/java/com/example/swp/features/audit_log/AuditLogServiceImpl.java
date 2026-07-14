@@ -71,7 +71,8 @@ public class AuditLogServiceImpl implements AuditLogService {
     
     @Override
     public void logAction(String action, String entityType, Long entityId, String oldValue, String newValue, Long eventId) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = (auth != null) ? auth.getName() : "SYSTEM";
         User currentUser = userRepository.findByUsername(username).orElse(null); // Can be null for system actions
 
         String details = String.format("Entity: %s, ID: %d", entityType, entityId);

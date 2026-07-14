@@ -45,6 +45,10 @@ public class TeamInvitationService {
             throw new com.example.swp.exception.BadRequestException("Invitations can only be sent during the registration phase.");
         }
 
+        if (team.getStatus() == com.example.swp.features.team.TeamStatus.DISQUALIFIED) {
+            throw new com.example.swp.exception.BadRequestException("Cannot invite members to a disqualified team.");
+        }
+
         if (team.getStatus() == com.example.swp.features.team.TeamStatus.FINALIZED) {
             throw new com.example.swp.exception.BadRequestException("Cannot invite members to a finalized team.");
         }
@@ -118,6 +122,9 @@ public class TeamInvitationService {
         }
 
         if (response == InvitationStatus.ACCEPTED) {
+            if (team.getStatus() == com.example.swp.features.team.TeamStatus.DISQUALIFIED) {
+                throw new com.example.swp.exception.BadRequestException("Cannot join a disqualified team.");
+            }
             
             if (!invitee.isVerified()) {
                 throw new IllegalStateException("Your account email must be verified before joining a team.");

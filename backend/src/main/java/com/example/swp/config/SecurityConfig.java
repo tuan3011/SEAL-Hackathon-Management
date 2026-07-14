@@ -84,6 +84,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/test-seed").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/hackathon-events/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/CategoryCustomers/**").permitAll()
                         .requestMatchers("/api/v1/rankings/**").permitAll()

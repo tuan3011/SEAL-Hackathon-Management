@@ -23,6 +23,7 @@ public class MentorshipRequestResponse {
     private LocalDateTime resolvedAt;
     private String answer;
     private String rejectReason;
+    private String trackName;
 
     public static MentorshipRequestResponseBuilder builder() { return new MentorshipRequestResponseBuilder(); }
     public static class MentorshipRequestResponseBuilder {
@@ -38,6 +39,7 @@ public class MentorshipRequestResponse {
         private LocalDateTime resolvedAt;
         private String answer;
         private String rejectReason;
+        private String trackName;
 
         public MentorshipRequestResponseBuilder id(Long id) { this.id = id; return this; }
         public MentorshipRequestResponseBuilder teamId(Long teamId) { this.teamId = teamId; return this; }
@@ -51,6 +53,7 @@ public class MentorshipRequestResponse {
         public MentorshipRequestResponseBuilder resolvedAt(LocalDateTime resolvedAt) { this.resolvedAt = resolvedAt; return this; }
         public MentorshipRequestResponseBuilder answer(String answer) { this.answer = answer; return this; }
         public MentorshipRequestResponseBuilder rejectReason(String rejectReason) { this.rejectReason = rejectReason; return this; }
+        public MentorshipRequestResponseBuilder trackName(String trackName) { this.trackName = trackName; return this; }
 
         public MentorshipRequestResponse build() {
             MentorshipRequestResponse m = new MentorshipRequestResponse();
@@ -59,6 +62,7 @@ public class MentorshipRequestResponse {
             m.title = this.title; m.description = this.description; m.status = this.status;
             m.createdAt = this.createdAt; m.resolvedAt = this.resolvedAt;
             m.answer = this.answer; m.rejectReason = this.rejectReason;
+            m.trackName = this.trackName;
             return m;
         }
     }

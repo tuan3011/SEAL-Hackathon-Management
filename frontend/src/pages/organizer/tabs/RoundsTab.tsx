@@ -93,9 +93,9 @@ const RoundsTab: React.FC = () => {
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!form.name.trim()) { toast.error('Round name cannot be empty.'); return; }
-        if (!form.startTime || !form.endTime || !form.gradingEndTime) { toast.error('Start, end, and grading end times are required.'); return; }
-        if (form.startTime >= form.endTime) { toast.error('End time must be after start time.'); return; }
-        if (form.gradingEndTime <= form.endTime) { toast.error('Grading end time must be after round end time.'); return; }
+        if (!form.startTime || !form.endTime || !form.gradingEndTime) { toast.error('Start, submission end, and round end times are required.'); return; }
+        if (form.startTime >= form.endTime) { toast.error('Submission end time must be after start time.'); return; }
+        if (form.gradingEndTime <= form.endTime) { toast.error('Round end time (grading ends) must be after submission end time.'); return; }
 
         setSaving(true);
         try {
@@ -141,15 +141,15 @@ const RoundsTab: React.FC = () => {
             return;
         }
         if (!editingRound.startTime || !editingRound.endTime || !editingRound.gradingEndTime) {
-            toast.error('Start, end, and grading end times are required.');
+            toast.error('Start, submission end, and round end times are required.');
             return;
         }
         if (editingRound.startTime >= editingRound.endTime) {
-            toast.error('End time must be after start time.');
+            toast.error('Submission end time must be after start time.');
             return;
         }
         if (editingRound.gradingEndTime <= editingRound.endTime) {
-            toast.error('Grading end time must be after round end time.');
+            toast.error('Round end time (grading ends) must be after submission end time.');
             return;
         }
         const loadingToast = toast.loading('Updating round...');
@@ -316,7 +316,7 @@ const RoundsTab: React.FC = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-xs font-medium text-gray-700 mb-1">End Time *</label>
+                            <label className="block text-xs font-medium text-gray-700 mb-1">Submission End Time *</label>
                             <input
                                 type="datetime-local"
                                 value={form.endTime}
@@ -326,7 +326,7 @@ const RoundsTab: React.FC = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-xs font-medium text-gray-700 mb-1">Grading End Time *</label>
+                            <label className="block text-xs font-medium text-gray-700 mb-1">Round End Time (Grading Ends) *</label>
                             <input
                                 type="datetime-local"
                                 value={form.gradingEndTime}
@@ -491,7 +491,7 @@ const RoundsTab: React.FC = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">End Time *</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Submission End Time *</label>
                                 <input
                                     type="datetime-local"
                                     value={editingRound.endTime ? editingRound.endTime.slice(0, 16) : ''}
@@ -502,7 +502,7 @@ const RoundsTab: React.FC = () => {
                             </div>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Grading End Time *</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Round End Time (Grading Ends) *</label>
                             <input
                                 type="datetime-local"
                                 value={editingRound.gradingEndTime ? editingRound.gradingEndTime.slice(0, 16) : ''}

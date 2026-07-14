@@ -44,6 +44,10 @@ public class MentorshipRequestServiceImpl implements MentorshipRequestService {
                 .filter(tm -> tm.isLeader())
                 .orElseThrow(() -> new AccessDeniedException("Only the team leader can request mentorship."));
 
+        if (team.getStatus() != com.example.swp.features.team.TeamStatus.FINALIZED) {
+            throw new IllegalStateException("Your team must be finalized before requesting mentorship.");
+        }
+
         if (team.getEvent().getStatus() == com.example.swp.features.hackathon_event.HackathonStatus.COMPLETED ||
             team.getEvent().getStatus() == com.example.swp.features.hackathon_event.HackathonStatus.CANCELLED) {
             throw new IllegalStateException("Cannot request mentorship when the event is completed or cancelled.");
@@ -342,6 +346,7 @@ public class MentorshipRequestServiceImpl implements MentorshipRequestService {
                 .resolvedAt(request.getResolvedAt())
                 .answer(request.getAnswer())
                 .rejectReason(request.getRejectReason())
+                .trackName(request.getTeam().getTrack() != null ? request.getTeam().getTrack().getName() : null)
                 .build();
     }
 }
